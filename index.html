@@ -2,397 +2,768 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Orloj — Osobní observatoř</title>
-<meta name="theme-color" content="#0a0d13">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#07101e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Orloj">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="orloj-icon-180.png">
+<meta name="description" content="Osobní hermetická observatoř — aktuální obloha, nativní vrstva, tranzity a deník.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./orloj-icon-180.png">
+<title>Orloj · osobní observatoř</title>
 <style>
-  :root{
-    --bg:#070a10; --panel:rgba(255,255,255,.06); --line:rgba(255,255,255,.10);
-    --text:#f4f6fb; --muted:rgba(255,255,255,.56); --gold:#f0c36d; --cyan:#8fd8ff;
-    --green:#93e0c5; --rose:#f2aac9;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0; color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
-    background:
-      radial-gradient(1000px 700px at 50% -10%, #162034 0%, #0b0f18 45%, #06080d 100%);
-    min-height:100vh;
-    overflow-x:hidden;
-  }
-  body:before, body:after{
-    content:""; position:fixed; inset:-100px; pointer-events:none;
-    background-repeat:repeat; z-index:0;
-  }
-  body:before{
-    background-image:
-      radial-gradient(1.2px 1.2px at 12% 22%, rgba(255,255,255,.55), transparent),
-      radial-gradient(1px 1px at 72% 12%, rgba(255,255,255,.35), transparent),
-      radial-gradient(1.3px 1.3px at 82% 42%, rgba(255,240,210,.4), transparent),
-      radial-gradient(1px 1px at 24% 72%, rgba(200,220,255,.32), transparent);
-    background-size:300px 300px; opacity:.75; animation:drift1 180s linear infinite;
-  }
-  body:after{
-    background-image:
-      radial-gradient(1px 1px at 18% 50%, rgba(255,255,255,.28), transparent),
-      radial-gradient(1px 1px at 48% 70%, rgba(255,255,255,.24), transparent),
-      radial-gradient(1px 1px at 78% 24%, rgba(255,230,200,.22), transparent);
-    background-size:420px 420px; opacity:.45; animation:drift2 280s linear infinite;
-  }
-  @keyframes drift1{from{transform:translateY(0)}to{transform:translateY(-70px)}}
-  @keyframes drift2{from{transform:translateY(0)}to{transform:translateY(90px)}}
+:root{
+  color-scheme:dark;
+  --night:#050914;
+  --lapis:#0b1c3d;
+  --lapis2:#123067;
+  --ink:#111827;
+  --gold:#d6af55;
+  --gold2:#f4d88a;
+  --ivory:#f1ead9;
+  --silver:#cbd9ef;
+  --carmine:#bd5b59;
+  --cyan:#82c7d9;
+  --green:#86b9a7;
+  --muted:rgba(241,234,217,.56);
+  --line:rgba(214,175,85,.22);
+  --panel:rgba(8,15,29,.78);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--night);scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ivory);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+  background:
+    radial-gradient(100% 55% at 50% -8%,rgba(42,82,143,.36),transparent 72%),
+    radial-gradient(90% 55% at 50% 38%,rgba(9,37,82,.30),transparent 76%),
+    linear-gradient(180deg,#07101e 0%,#050914 62%,#03060d 100%);
+  overflow-x:hidden;
+  padding-bottom:calc(88px + env(safe-area-inset-bottom));
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.42;
+  background-image:
+    radial-gradient(circle at 8% 12%,rgba(255,255,255,.75) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 79% 18%,rgba(244,216,138,.75) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 43% 31%,rgba(255,255,255,.5) 0 .8px,transparent 1.3px),
+    radial-gradient(circle at 91% 63%,rgba(130,199,217,.5) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 17% 71%,rgba(255,255,255,.45) 0 .8px,transparent 1.3px);
+  background-size:230px 230px,310px 310px,180px 180px,270px 270px,340px 340px;
+}
+body:after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.012),transparent);
+  mix-blend-mode:screen;
+}
+button,input,textarea{font:inherit}
+button{color:inherit}
+.app{position:relative;z-index:1;max-width:520px;margin:0 auto}
+.topbar{
+  min-height:66px;padding:max(14px,env(safe-area-inset-top)) 17px 8px;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:14px;
+}
+.brand .kicker{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:10px;line-height:1;letter-spacing:2.2px;text-transform:uppercase;
+  color:rgba(244,216,138,.64);margin-bottom:5px
+}
+.brand h1{
+  margin:0;font-family:Georgia,"Times New Roman",serif;font-size:29px;
+  font-weight:500;letter-spacing:.2px;color:var(--ivory)
+}
+.brand h1 span{color:var(--gold2)}
+.clockbox{text-align:right}
+.clockbox b{display:block;font-size:15px;letter-spacing:.25px}
+.clockbox span{display:block;margin-top:3px;font-size:10px;color:var(--muted)}
+.date-nav{
+  margin:5px 15px 3px;height:37px;border-top:1px solid rgba(214,175,85,.16);
+  border-bottom:1px solid rgba(214,175,85,.16);
+  display:grid;grid-template-columns:42px 1fr 42px;align-items:center
+}
+.date-nav button{
+  border:0;background:transparent;font-size:23px;color:rgba(244,216,138,.66);
+  height:36px;cursor:pointer
+}
+.date-nav .date-main{text-align:center}
+.date-nav .date-main b{font-family:Georgia,"Times New Roman",serif;font-size:13px;font-weight:500}
+.date-nav .date-main span{display:block;margin-top:2px;font-size:9px;letter-spacing:1.25px;text-transform:uppercase;color:var(--muted)}
 
-  .wrap{max-width:1220px; margin:0 auto; padding:18px 16px 32px; position:relative; z-index:1}
-  .top{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap; margin-bottom:16px}
-  .eyebrow{font-size:12px; color:rgba(255,255,255,.42); margin:0 0 4px}
-  h1{margin:0; font-size:34px; letter-spacing:-.7px}
-  .meta{text-align:right}
-  .meta .clock{font-size:16px; font-weight:700}
-  .meta .sub{font-size:12px; color:rgba(255,255,255,.42); margin-top:3px}
+.hero{padding:4px 7px 2px}
+.instrument{
+  position:relative;width:min(100%,505px);margin:0 auto;
+  filter:drop-shadow(0 24px 30px rgba(0,0,0,.48));
+}
+.instrument:before{
+  content:"";position:absolute;inset:7.5%;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle,rgba(41,82,145,.24),transparent 67%);
+  filter:blur(18px)
+}
+#orloj{display:block;width:100%;height:auto;overflow:visible}
+.orloj-click{cursor:pointer}
+.center-glow{animation:breathe 6s ease-in-out infinite;transform-origin:195px 195px}
+@keyframes breathe{0%,100%{opacity:.74}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.center-glow{animation:none}}
+.orbit-label{
+  font-family:Georgia,"Times New Roman",serif;fill:#f1ead9;letter-spacing:.2px
+}
+.zodiac-glyph{font-family:Georgia,"Times New Roman",serif;fill:#f4d88a;font-size:20px}
+.zodiac-name{font-size:7.2px;letter-spacing:1px;fill:rgba(241,234,217,.58);text-transform:uppercase}
+.planet-glyph{font-family:Georgia,"Times New Roman",serif;font-weight:700}
+.natal-glyph{font-family:Georgia,"Times New Roman",serif;font-size:8px;fill:rgba(203,217,239,.84)}
+.micro-legend{
+  margin:-1px 17px 10px;display:flex;justify-content:center;gap:13px;flex-wrap:wrap;
+  color:rgba(241,234,217,.48);font-size:9px;letter-spacing:.4px
+}
+.micro-legend span{display:inline-flex;align-items:center;gap:5px}
+.micro-legend i{display:block;width:13px;height:1px;background:var(--gold)}
+.micro-legend .nat i{background:var(--silver);border-top:1px dashed var(--silver)}
+.micro-legend .asp i{background:var(--carmine)}
 
-  .layout{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:16px}
-  @media (max-width:980px){.layout{grid-template-columns:1fr}}
-  @media (max-width:600px){
-    .wrap{padding:14px 10px 28px}.top{margin-bottom:10px}.top h1{font-size:48px}
-    .orbit-head{padding-bottom:6px}.controls{justify-content:flex-start;width:100%}
-    .orloj-shell{display:flex;flex-direction:column}.wheel-wrap{order:0}.focus{order:1}
-    #wheel{min-height:300px}.card{border-radius:22px}
-  }
-  .card{background:var(--panel); border:1px solid var(--line); border-radius:24px; backdrop-filter:blur(10px)}
-  .main{padding:14px}
-  .orbit-head{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap; padding:4px 6px 14px}
-  .orbit-head h2{margin:0; font-size:22px}
-  .orbit-head .sub{font-size:13px; color:var(--muted); margin-top:3px}
+.today-card{
+  margin:4px 14px 11px;padding:16px 15px 14px;position:relative;overflow:hidden;
+  border:1px solid rgba(214,175,85,.26);border-radius:20px;
+  background:
+    radial-gradient(120% 120% at 100% 0%,rgba(40,85,154,.20),transparent 56%),
+    linear-gradient(145deg,rgba(19,35,66,.86),rgba(7,13,26,.91));
+  box-shadow:inset 0 1px rgba(255,255,255,.035),0 12px 28px rgba(0,0,0,.18)
+}
+.today-card:before{
+  content:"";position:absolute;left:16px;right:16px;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold2),transparent);opacity:.55
+}
+.section-kicker{
+  font-size:9px;letter-spacing:1.65px;text-transform:uppercase;color:rgba(244,216,138,.68);
+  font-weight:700
+}
+.today-title{
+  display:flex;align-items:center;gap:9px;margin-top:7px
+}
+.today-title .moon-icon{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:50%;
+  border:1px solid rgba(203,217,239,.22);background:rgba(203,217,239,.06);
+  font-size:22px;color:var(--silver)
+}
+.today-title h2{
+  margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:21px
+}
+.today-title p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+.today-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px
+}
+.fact{
+  min-height:59px;padding:10px;border-radius:13px;border:1px solid rgba(214,175,85,.12);
+  background:rgba(255,255,255,.025)
+}
+.fact.wide{grid-column:1/-1;min-height:auto}
+.fact .fkey{
+  font-size:8px;letter-spacing:1.25px;text-transform:uppercase;color:rgba(241,234,217,.4)
+}
+.fact .fval{font-size:12px;font-weight:650;margin-top:5px;line-height:1.35}
+.fact .fsub{font-size:9px;color:var(--muted);margin-top:3px}
 
-  .controls{display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end}
-  .btn, .speed, .datebox{
-    border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); color:var(--text);
-    border-radius:12px; padding:10px 12px; font:inherit;
-  }
-  .btn{cursor:pointer; font-weight:700}
-  .btn.on{background:rgba(240,163,108,.14); border-color:rgba(240,163,108,.45); color:#ffd9b8}
-  .speed{padding-right:36px}
-  .datebox{font-size:13px; color:var(--muted)}
+.accordions{margin:0 14px}
+.acc{
+  border-top:1px solid rgba(214,175,85,.14)
+}
+.acc:last-child{border-bottom:1px solid rgba(214,175,85,.14)}
+.acc-head{
+  width:100%;min-height:52px;border:0;background:transparent;display:flex;
+  align-items:center;gap:11px;padding:0 2px;text-align:left;cursor:pointer
+}
+.acc-head .sigil{
+  width:27px;height:27px;display:grid;place-items:center;border-radius:50%;
+  border:1px solid rgba(214,175,85,.18);color:var(--gold2);
+  font-family:Georgia,"Times New Roman",serif;font-size:14px
+}
+.acc-head .atxt{flex:1}
+.acc-head b{font-family:Georgia,"Times New Roman",serif;font-size:15px;font-weight:500}
+.acc-head small{display:block;margin-top:2px;color:var(--muted);font-size:9.5px}
+.acc-head .chev{font-size:17px;color:rgba(244,216,138,.45);transition:transform .2s}
+.acc.open .chev{transform:rotate(180deg)}
+.acc-body{display:none;padding:2px 0 14px}
+.acc.open .acc-body{display:block}
+.row{
+  display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:1px solid rgba(255,255,255,.045)
+}
+.row:first-child{border-top:0}
+.row .rg{
+  width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);
+  font-family:Georgia,"Times New Roman",serif;font-size:17px
+}
+.row .rb{min-width:0;flex:1}
+.row .rt{font-size:12px;font-weight:650}
+.row .rs{font-size:9.5px;color:var(--muted);margin-top:3px;line-height:1.35}
+.row .rr{text-align:right;font-size:9px;color:rgba(244,216,138,.68)}
+.transit-symbol{font-size:13px;margin:0 3px;color:var(--gold2)}
+.badge{
+  display:inline-flex;align-items:center;border:1px solid rgba(214,175,85,.18);
+  padding:3px 7px;border-radius:999px;font-size:8px;letter-spacing:.4px;color:rgba(244,216,138,.8)
+}
+.journal{
+  width:100%;min-height:105px;resize:vertical;border-radius:14px;
+  border:1px solid rgba(214,175,85,.18);background:rgba(255,255,255,.028);
+  color:var(--ivory);padding:11px;font-size:12px;line-height:1.5;outline:none
+}
+.journal:focus{border-color:rgba(244,216,138,.45)}
+.save{
+  margin-top:8px;border:1px solid rgba(214,175,85,.28);border-radius:11px;
+  background:rgba(214,175,85,.1);padding:8px 12px;color:var(--gold2);
+  font-size:10px;font-weight:700;cursor:pointer
+}
+.saved{margin-left:8px;font-size:9px;color:var(--green);opacity:0;transition:opacity .25s}
+.saved.show{opacity:1}
 
-  .orloj-shell{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:12px; align-items:start}
-  @media (max-width:860px){.orloj-shell{grid-template-columns:1fr}}
-  .wheel-wrap{padding:8px 4px 4px;min-width:0}
-  #wheel{width:100%;min-height:320px;display:grid;place-items:center}
-  .fallback-wheel{width:100%;max-width:720px;height:auto;display:block}
-  .fallback-planet{transform-origin:180px 180px;animation:fallbackOrbit 24s linear infinite}
-  .fp-1{animation-duration:12s}.fp-2{animation-duration:18s}.fp-3{animation-duration:30s}.fp-4{animation-duration:36s}
-  @keyframes fallbackOrbit{to{transform:rotate(360deg)}}
-  .script-note{display:none;margin:0 10px 10px;padding:9px 11px;border-radius:12px;border:1px solid rgba(248,197,107,.22);background:rgba(248,197,107,.07);color:rgba(255,255,255,.62);font-size:11px;line-height:1.45}
-  .js-failed .script-note{display:block}
-  .wheel-status{display:flex; flex-wrap:wrap; gap:8px; padding:0 8px 8px}
-  .chip{display:inline-flex; gap:7px; align-items:center; border-radius:999px; padding:6px 10px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.04); font-size:12px; color:rgba(255,255,255,.74)}
-  .chip b{color:#fff}
-  .dot{width:7px; height:7px; border-radius:50%}
+.bottom{
+  position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:20;
+  width:min(100%,520px);height:calc(62px + env(safe-area-inset-bottom));
+  padding:5px 14px env(safe-area-inset-bottom);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:linear-gradient(180deg,rgba(5,9,20,.76),rgba(5,9,20,.97) 38%);
+  border-top:1px solid rgba(214,175,85,.18);backdrop-filter:blur(18px)
+}
+.navbtn{
+  border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;color:rgba(241,234,217,.38);font-size:8px;letter-spacing:.25px;cursor:pointer
+}
+.navbtn .ni{font-family:Georgia,"Times New Roman",serif;font-size:18px;line-height:1}
+.navbtn.on{color:var(--gold2)}
 
-  .focus{padding:16px}
-  .focus h3{margin:0; font-size:18px}
-  .focus .muted{color:var(--muted); font-size:12px; margin-top:4px}
-  .focus .hero{margin-top:14px; display:flex; align-items:center; gap:12px}
-  .glyph{width:54px; height:54px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(255,255,255,.11); background:rgba(255,255,255,.04); font-size:26px}
-  .hero .big{font-size:26px; font-weight:700; letter-spacing:-.4px}
-  .hero .small{font-size:13px; color:var(--muted); margin-top:3px}
-  .detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px}
-  .mini{padding:12px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:rgba(255,255,255,.03)}
-  .mini .k{font-size:11px; color:rgba(255,255,255,.45); font-weight:700; text-transform:uppercase; letter-spacing:.4px}
-  .mini .v{font-size:15px; margin-top:5px; font-weight:700}
-
-  .side{display:flex; flex-direction:column; gap:16px}
-  .panel{padding:16px}
-  .panel h3{margin:0; font-size:18px}
-  .panel .sub{font-size:12px; color:var(--muted); margin-top:4px}
-  .planet-list{margin-top:12px}
-  .prow{display:flex; align-items:center; gap:10px; padding:11px 2px; border-top:1px solid rgba(255,255,255,.06)}
-  .prow:first-child{border-top:0}
-  .pg{width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); font-size:17px}
-  .pb{flex:1; min-width:0}
-  .pn{font-size:14px; font-weight:700}
-  .ps{font-size:12px; color:var(--muted); margin-top:3px}
-  .pr{font-size:11px; font-weight:700; color:#fac785}
-
-  .events{margin-top:10px}
-  .ev{padding:11px 0; border-top:1px solid rgba(255,255,255,.06)}
-  .ev:first-child{border-top:0}
-  .ev .t{font-size:14px; font-weight:700}
-  .ev .d{font-size:12px; color:var(--muted); margin-top:4px; line-height:1.45}
-
-  .note{font-size:12px; line-height:1.55; color:var(--muted); margin-top:12px}
-  .footer{padding-top:12px; text-align:center; font-size:11px; color:rgba(255,255,255,.32)}
+.sheet{
+  position:fixed;inset:0;z-index:40;display:none;align-items:flex-end;
+  background:rgba(1,3,8,.6);backdrop-filter:blur(8px)
+}
+.sheet.open{display:flex}
+.sheet-card{
+  width:min(100%,520px);margin:0 auto;padding:8px 16px calc(18px + env(safe-area-inset-bottom));
+  border-radius:24px 24px 0 0;border:1px solid rgba(214,175,85,.22);
+  background:linear-gradient(165deg,#10234a,#070d1b 60%);
+  box-shadow:0 -25px 65px rgba(0,0,0,.55)
+}
+.handle{width:42px;height:4px;border-radius:99px;background:rgba(241,234,217,.2);margin:0 auto 13px}
+.sheet-top{display:flex;align-items:center;gap:11px}
+.sheet-top .sg{
+  width:46px;height:46px;display:grid;place-items:center;border-radius:50%;
+  border:1px solid rgba(214,175,85,.25);font-family:Georgia,"Times New Roman",serif;font-size:25px
+}
+.sheet-top h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:22px;font-weight:500}
+.sheet-top p{margin:3px 0 0;font-size:10px;color:var(--muted)}
+.sheet-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.sheet-close{
+  width:100%;margin-top:14px;border:1px solid rgba(214,175,85,.22);border-radius:12px;
+  background:rgba(255,255,255,.035);padding:10px;color:var(--ivory);cursor:pointer
+}
+.version{text-align:center;margin:18px 0 4px;font-size:8px;letter-spacing:1px;color:rgba(241,234,217,.25)}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="top">
-    <div>
-      <p class="eyebrow">Osobní observatoř · animovaný orloj</p>
-      <h1>Orloj</h1>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="kicker">Osobní observatoř</div>
+      <h1>Orloj <span>✦</span></h1>
     </div>
-    <div class="meta">
-      <div class="clock" id="clock">—</div>
-      <div class="sub">živá obloha · Uherský Brod / Zlín</div>
+    <div class="clockbox">
+      <b id="clock">—</b>
+      <span id="location">Uherský Brod · Zlín</span>
     </div>
+  </header>
+
+  <div class="date-nav">
+    <button id="prevDay" aria-label="Předchozí den">‹</button>
+    <div class="date-main">
+      <b id="dateLabel">—</b>
+      <span id="dateMode">živá obloha</span>
+    </div>
+    <button id="nextDay" aria-label="Následující den">›</button>
   </div>
 
-  <div class="layout">
-    <div class="card main">
-      <div class="orbit-head">
+  <main>
+    <section class="hero" id="observatory">
+      <div class="instrument">
+        <svg id="orloj" viewBox="0 0 390 390" role="img" aria-label="Osobní astrologický orloj"></svg>
+      </div>
+      <div class="micro-legend">
+        <span><i></i>aktuální obloha</span>
+        <span class="nat"><i></i>nativ</span>
+        <span class="asp"><i></i>hlavní aspekty</span>
+      </div>
+    </section>
+
+    <section class="today-card" id="today">
+      <div class="section-kicker">Dnes pro mne</div>
+      <div class="today-title">
+        <div class="moon-icon" id="moonIcon">☽</div>
         <div>
-          <h2>Observatoř</h2>
-          <div class="sub">Plynulý pohyb času, živé planety, osobní rytmus dne.</div>
-        </div>
-        <div class="controls">
-          <button class="btn" id="playBtn">▶ Přehrát</button>
-          <button class="btn" id="nowBtn">Dnes</button>
-          <label class="datebox">rychlost
-            <select class="speed" id="speedSel">
-              <option value="0.2">pomalá</option>
-              <option value="1" selected>normální</option>
-              <option value="6">rychlá</option>
-              <option value="24">1 den / s</option>
-            </select>
-          </label>
+          <h2 id="moonTitle">Měsíc —</h2>
+          <p id="moonSubtitle">—</p>
         </div>
       </div>
-
-      <div class="orloj-shell">
-        <div class="wheel-wrap">
-          <div id="wheel"><svg viewBox="0 0 360 360" class="fallback-wheel" aria-label="Animovaný astrologický orloj"><defs><radialGradient id="fg" cx="50%" cy="50%"><stop offset="0%" stop-color="rgba(143,216,255,.18)"/><stop offset="100%" stop-color="rgba(143,216,255,0)"/></radialGradient></defs><circle cx="180" cy="180" r="166" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.16)"/><circle cx="180" cy="180" r="126" fill="none" stroke="rgba(255,255,255,.10)"/><circle cx="180" cy="180" r="58" fill="url(#fg)" stroke="rgba(255,255,255,.08)"/><line x1="180.00" y1="54.00" x2="180.00" y2="14.00" stroke="rgba(255,255,255,.11)"/><text x="218.05" y="38.01" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Be</text><line x1="243.00" y1="70.88" x2="263.00" y2="36.24" stroke="rgba(255,255,255,.11)"/><text x="283.94" y="76.06" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Bý</text><line x1="289.12" y1="117.00" x2="323.76" y2="97.00" stroke="rgba(255,255,255,.11)"/><text x="321.99" y="141.95" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Bl</text><line x1="306.00" y1="180.00" x2="346.00" y2="180.00" stroke="rgba(255,255,255,.11)"/><text x="321.99" y="218.05" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Ra</text><line x1="289.12" y1="243.00" x2="323.76" y2="263.00" stroke="rgba(255,255,255,.11)"/><text x="283.94" y="283.94" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Le</text><line x1="243.00" y1="289.12" x2="263.00" y2="323.76" stroke="rgba(255,255,255,.11)"/><text x="218.05" y="321.99" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Pa</text><line x1="180.00" y1="306.00" x2="180.00" y2="346.00" stroke="rgba(255,255,255,.11)"/><text x="141.95" y="321.99" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Vá</text><line x1="117.00" y1="289.12" x2="97.00" y2="323.76" stroke="rgba(255,255,255,.11)"/><text x="76.06" y="283.94" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Št</text><line x1="70.88" y1="243.00" x2="36.24" y2="263.00" stroke="rgba(255,255,255,.11)"/><text x="38.01" y="218.05" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">St</text><line x1="54.00" y1="180.00" x2="14.00" y2="180.00" stroke="rgba(255,255,255,.11)"/><text x="38.01" y="141.95" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Ko</text><line x1="70.88" y1="117.00" x2="36.24" y2="97.00" stroke="rgba(255,255,255,.11)"/><text x="76.06" y="76.06" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Vo</text><line x1="117.00" y1="70.88" x2="97.00" y2="36.24" stroke="rgba(255,255,255,.11)"/><text x="141.95" y="38.01" fill="rgba(255,255,255,.46)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">Ry</text><g class="fallback-planet fp-0"><circle cx="91.13" cy="156.19" r="11" fill="rgba(10,13,19,.95)" stroke="#f8c56b" stroke-width="1.7"/><text x="91.13" y="156.69" fill="#f8c56b" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">☉</text></g><g class="fallback-planet fp-1"><circle cx="274.45" cy="131.88" r="11" fill="rgba(10,13,19,.95)" stroke="#d8e5ff" stroke-width="1.7"/><text x="274.45" y="132.38" fill="#d8e5ff" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">☽</text></g><g class="fallback-planet fp-2"><circle cx="76.54" cy="115.35" r="11" fill="rgba(10,13,19,.95)" stroke="#8fd8ff" stroke-width="1.7"/><text x="76.54" y="115.85" fill="#8fd8ff" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">☿</text></g><g class="fallback-planet fp-3"><circle cx="43.03" cy="163.18" r="11" fill="rgba(10,13,19,.95)" stroke="#f4a8c7" stroke-width="1.7"/><text x="43.03" y="163.68" fill="#f4a8c7" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">♀</text></g><g class="fallback-planet fp-4"><circle cx="268.44" cy="154.64" r="11" fill="rgba(10,13,19,.95)" stroke="#ff806e" stroke-width="1.7"/><text x="268.44" y="155.14" fill="#ff806e" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">♂</text></g><g class="fallback-planet fp-5"><circle cx="281.51" cy="227.33" r="11" fill="rgba(10,13,19,.95)" stroke="#f0a36c" stroke-width="1.7"/><text x="281.51" y="227.83" fill="#f0a36c" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">♃</text></g><g class="fallback-planet fp-6"><circle cx="215.72" cy="46.70" r="11" fill="rgba(10,13,19,.95)" stroke="#c8b68b" stroke-width="1.7"/><text x="215.72" y="47.20" fill="#c8b68b" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">♄</text></g><g class="fallback-planet fp-7"><circle cx="289.65" cy="126.52" r="11" fill="rgba(10,13,19,.95)" stroke="#75dfd4" stroke-width="1.7"/><text x="289.65" y="127.02" fill="#75dfd4" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">♅</text></g><g class="fallback-planet fp-8"><circle cx="183.77" cy="72.07" r="11" fill="rgba(10,13,19,.95)" stroke="#7aa7ff" stroke-width="1.7"/><text x="183.77" y="72.57" fill="#7aa7ff" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">♆</text></g><g class="fallback-planet fp-9"><circle cx="102.07" cy="127.44" r="11" fill="rgba(10,13,19,.95)" stroke="#b49cff" stroke-width="1.7"/><text x="102.07" y="127.94" fill="#b49cff" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">♇</text></g><text x="180" y="173" fill="rgba(255,255,255,.92)" font-size="17" font-weight="700" text-anchor="middle">Observatoř</text><text x="180" y="193" fill="rgba(255,255,255,.40)" font-size="11" text-anchor="middle">živý animovaný orloj</text></svg></div><div id="scriptNotice" class="script-note">Náhled zobrazuje základní ciferník. Animace se spustí po otevření stránky v Safari nebo po nahrání na web.</div>
-          <div class="wheel-status">
-            <span class="chip"><span class="dot" style="background:var(--green)"></span>čas <b id="dateLabel">—</b></span>
-            <span class="chip"><span class="dot" style="background:var(--gold)"></span>fáze Měsíce <b id="phaseLabel">—</b></span>
-            <span class="chip"><span class="dot" style="background:var(--cyan)"></span>animace <b id="animLabel">zastaveno</b></span>
-          </div>
+      <div class="today-grid">
+        <div class="fact">
+          <div class="fkey">Nejtěsnější osobní tranzit</div>
+          <div class="fval" id="personalTransit">—</div>
+          <div class="fsub" id="personalTransitSub">—</div>
         </div>
-
-        <div class="card focus">
-          <h3>Fokus dne</h3>
-          <div class="muted">Vybrané těleso, které můžeš později měnit podle potřeby.</div>
-          <div class="hero">
-            <div class="glyph" id="focusGlyph">☽</div>
-            <div>
-              <div class="big" id="focusTitle">Měsíc</div>
-              <div class="small" id="focusSub">—</div>
-            </div>
-          </div>
-          <div class="detail-grid">
-            <div class="mini"><div class="k">Znamení</div><div class="v" id="focusSign">—</div></div>
-            <div class="mini"><div class="k">Rychlost</div><div class="v" id="focusRate">—</div></div>
-            <div class="mini"><div class="k">Další ingres</div><div class="v" id="focusIngress">—</div></div>
-            <div class="mini"><div class="k">Osvětlení</div><div class="v" id="focusLight">—</div></div>
-          </div>
-          <div class="note" id="focusNote">Měsíc je nejživější část osobní observatoře — ukazuje tón dne, náladu a proměnu. V další verzi sem můžeme napojit i osobní tranzity na tvůj nativ.</div>
+        <div class="fact">
+          <div class="fkey">Další změna Měsíce</div>
+          <div class="fval" id="moonIngress">—</div>
+          <div class="fsub" id="moonIngressSub">—</div>
+        </div>
+        <div class="fact wide">
+          <div class="fkey">Hlavní aspekt oblohy</div>
+          <div class="fval" id="skyAspect">—</div>
+          <div class="fsub" id="skyAspectSub">—</div>
         </div>
       </div>
+    </section>
+
+    <section class="accordions">
+      <article class="acc open" id="activeSky">
+        <button class="acc-head">
+          <span class="sigil">✦</span>
+          <span class="atxt"><b>Aktivní nebe</b><small>Nejtěsnější vazby dne</small></span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="acc-body" id="activeSkyBody"></div>
+      </article>
+
+      <article class="acc" id="planets">
+        <button class="acc-head">
+          <span class="sigil">☉</span>
+          <span class="atxt"><b>Planety</b><small>Aktuální polohy a pohyb</small></span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="acc-body" id="planetBody"></div>
+      </article>
+
+      <article class="acc" id="natal">
+        <button class="acc-head">
+          <span class="sigil">◇</span>
+          <span class="atxt"><b>Můj nativ</b><small>27. prosince 1999 · 10:27 · Zlín</small></span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="acc-body" id="natalBody"></div>
+      </article>
+
+      <article class="acc" id="transitions">
+        <button class="acc-head">
+          <span class="sigil">☽</span>
+          <span class="atxt"><b>Přechody</b><small>Nejbližší ingresy planet</small></span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="acc-body" id="transitionBody"></div>
+      </article>
+
+      <article class="acc" id="journalSection">
+        <button class="acc-head">
+          <span class="sigil">✎</span>
+          <span class="atxt"><b>Kniha pozorování</b><small>Soukromý zápis uložený v telefonu</small></span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="acc-body">
+          <textarea class="journal" id="journal" placeholder="Co dnes pozoruji…"></textarea>
+          <button class="save" id="saveJournal">Uložit zápis</button><span class="saved" id="saved">Uloženo ✓</span>
+        </div>
+      </article>
+    </section>
+
+    <div class="version">ORLOJ MOBILE V1 · HERMETICKÁ OBSERVATOŘ</div>
+  </main>
+</div>
+
+<nav class="bottom">
+  <button class="navbtn on" data-target="observatory"><span class="ni">⊙</span><span>Observatoř</span></button>
+  <button class="navbtn" data-target="transitions"><span class="ni">⌛</span><span>Čas</span></button>
+  <button class="navbtn" data-target="natal"><span class="ni">◇</span><span>Nativ</span></button>
+  <button class="navbtn" data-target="journalSection"><span class="ni">✎</span><span>Deník</span></button>
+</nav>
+
+<div class="sheet" id="planetSheet">
+  <div class="sheet-card">
+    <div class="handle"></div>
+    <div class="sheet-top">
+      <div class="sg" id="sheetGlyph">☉</div>
+      <div><h3 id="sheetName">Slunce</h3><p id="sheetPosition">—</p></div>
     </div>
-
-    <div class="side">
-      <div class="card panel">
-        <h3>Planety teď</h3>
-        <div class="sub">Živý seznam pro rychlou orientaci.</div>
-        <div class="planet-list" id="planetList"></div>
-      </div>
-
-      <div class="card panel">
-        <h3>Nadcházející přechody</h3>
-        <div class="sub">První užitečný osobní servis pro observatoř.</div>
-        <div class="events" id="eventList"></div>
-        <div class="note">Teď je to záměrně jednoduché: Moon ingresses + 2 nejbližší přechody ostatních těles. V další fázi přidáme přesné osobní tranzity na tvůj nativ.</div>
-      </div>
+    <div class="sheet-facts">
+      <div class="fact"><div class="fkey">Pohyb</div><div class="fval" id="sheetMotion">—</div></div>
+      <div class="fact"><div class="fkey">Další znamení</div><div class="fval" id="sheetIngress">—</div></div>
+      <div class="fact"><div class="fkey">Nativní poloha</div><div class="fval" id="sheetNatal">—</div></div>
+      <div class="fact"><div class="fkey">Nejtěsnější vazba</div><div class="fval" id="sheetAspect">—</div></div>
     </div>
+    <button class="sheet-close" id="sheetClose">Zavřít</button>
   </div>
-
-  <div class="footer">Osobní observatoř v0.1 · animovaný orloj jako nový střed systému</div>
 </div>
 
 <script>
-window.addEventListener("error",function(e){
-  document.documentElement.classList.add("js-failed");
-  var n=document.getElementById("scriptNotice");
-  if(n)n.textContent="Animace se v tomto náhledu nespustila. Otevři soubor v Safari nebo jej nahraj na GitHub Pages; statický ciferník zůstává viditelný.";
-});
 (function(){
-  var RAD=Math.PI/180;
-  var TROP_CZ=["Beran","Býk","Blíženci","Rak","Lev","Panna","Váhy","Štír","Střelec","Kozoroh","Vodnář","Ryby"];
-  var WL=["Be","Bý","Bl","Ra","Le","Pa","Vá","Št","St","Ko","Vo","Ry"];
-  var BODIES=[
-    {id:"sun",name:"Slunce",sym:"☉",ac:"#f8c56b"},
-    {id:"moon",name:"Měsíc",sym:"☽",ac:"#d8e5ff"},
-    {id:"mercury",name:"Merkur",sym:"☿",ac:"#8fd8ff"},
-    {id:"venus",name:"Venuše",sym:"♀",ac:"#f4a8c7"},
-    {id:"mars",name:"Mars",sym:"♂",ac:"#ff806e"},
-    {id:"jupiter",name:"Jupiter",sym:"♃",ac:"#f0a36c"},
-    {id:"saturn",name:"Saturn",sym:"♄",ac:"#c8b68b"},
-    {id:"uranus",name:"Uran",sym:"♅",ac:"#75dfd4"},
-    {id:"neptune",name:"Neptun",sym:"♆",ac:"#7aa7ff"},
-    {id:"pluto",name:"Pluto",sym:"♇",ac:"#b49cff"}
-  ];
-  var state={t:Date.now(), playing:false, speed:1, focus:"moon"};
+"use strict";
+var RAD=Math.PI/180;
+var rev=function(x){return ((x%360)+360)%360;};
+var sin=function(d){return Math.sin(d*RAD);};
+var cos=function(d){return Math.cos(d*RAD);};
+var toDeg=function(r){return r/RAD;};
+var SIGNS=["Beran","Býk","Blíženci","Rak","Lev","Panna","Váhy","Štír","Střelec","Kozoroh","Vodnář","Ryby"];
+var SIGN_SHORT=["BER","BÝK","BLÍ","RAK","LEV","PAN","VÁH","ŠTÍ","STŘ","KOZ","VOD","RYB"];
+var SIGN_GLYPH=["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"];
+var BODIES=[
+ {id:"sun",name:"Slunce",sym:"☉",color:"#f4d88a"},
+ {id:"moon",name:"Měsíc",sym:"☽",color:"#d7e2f5"},
+ {id:"mercury",name:"Merkur",sym:"☿",color:"#9acbd5"},
+ {id:"venus",name:"Venuše",sym:"♀",color:"#dfaaa5"},
+ {id:"mars",name:"Mars",sym:"♂",color:"#c86a62"},
+ {id:"jupiter",name:"Jupiter",sym:"♃",color:"#d9a85e"},
+ {id:"saturn",name:"Saturn",sym:"♄",color:"#b7a377"},
+ {id:"uranus",name:"Uran",sym:"♅",color:"#83c5bd"},
+ {id:"neptune",name:"Neptun",sym:"♆",color:"#7e9eda"},
+ {id:"pluto",name:"Pluto",sym:"♇",color:"#aa88c6"}
+];
+var BMAP={}; BODIES.forEach(function(b){BMAP[b.id]=b;});
+var state={offset:0,selected:"moon",snapshot:[],natal:null,personal:[],sky:[]};
+var BIRTH={utc:Date.UTC(1999,11,27,9,27,0),lat:49.2331,long:17.6709};
 
-  function rev(x){return ((x%360)+360)%360;}
-  function sin(d){return Math.sin(d*RAD);} function cos(d){return Math.cos(d*RAD);} function toDeg(r){return r/RAD;}
-  function fmtDate(date){return new Intl.DateTimeFormat("cs-CZ",{weekday:"short",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"}).format(date);}
-  function dayNumber(date){var Y=date.getUTCFullYear(),M=date.getUTCMonth()+1,D=date.getUTCDate();var ut=date.getUTCHours()+date.getUTCMinutes()/60+date.getUTCSeconds()/3600;return 367*Y-Math.floor((7*(Y+Math.floor((M+9)/12)))/4)+Math.floor((275*M)/9)+D-730530+ut/24;}
-  function kepler(M,e){M=rev(M);var E=M+toDeg(e)*sin(M)*(1+e*cos(M));if(e>0.05){for(var i=0;i<12;i++){var dE=(E-toDeg(e)*sin(E)-M)/(1-e*cos(E));E-=dE;if(Math.abs(dE)<1e-7)break;}}return E;}
-  function sunState(d){var w=282.9404+4.70935e-5*d,e=0.016709-1.151e-9*d,M=356.047+0.9856002585*d;var E=kepler(M,e);var xv=cos(E)-e,yv=Math.sqrt(1-e*e)*sin(E);var v=toDeg(Math.atan2(yv,xv)),r=Math.sqrt(xv*xv+yv*yv);var lon=rev(v+w);return{lon:lon,r:r,x:r*cos(lon),y:r*sin(lon),M:M,w:w};}
-  function fromEl(N,i,w,a,e,M){var E=kepler(M,e);var xv=a*(cos(E)-e),yv=a*Math.sqrt(1-e*e)*sin(E);var v=toDeg(Math.atan2(yv,xv)),r=Math.sqrt(xv*xv+yv*yv);var xh=r*(cos(N)*cos(v+w)-sin(N)*sin(v+w)*cos(i)),yh=r*(sin(N)*cos(v+w)+cos(N)*sin(v+w)*cos(i)),zh=r*(sin(v+w)*sin(i));return{lon:rev(toDeg(Math.atan2(yh,xh))),lat:toDeg(Math.atan2(zh,Math.sqrt(xh*xh+yh*yh))),r:r};}
-  function elements(b,d){switch(b){
-    case"mercury":return{N:48.3313+3.24587e-5*d,i:7.0047+5e-8*d,w:29.1241+1.01444e-5*d,a:0.387098,e:0.205635+5.59e-10*d,M:168.6562+4.0923344368*d};
-    case"venus":return{N:76.6799+2.4659e-5*d,i:3.3946+2.75e-8*d,w:54.891+1.38374e-5*d,a:0.72333,e:0.006773-1.302e-9*d,M:48.0052+1.6021302244*d};
-    case"mars":return{N:49.5574+2.11081e-5*d,i:1.8497-1.78e-8*d,w:286.5016+2.92961e-5*d,a:1.523688,e:0.093405+2.516e-9*d,M:18.6021+0.5240207766*d};
-    case"jupiter":return{N:100.4542+2.76854e-5*d,i:1.303-1.557e-7*d,w:273.8777+1.64505e-5*d,a:5.20256,e:0.048498+4.469e-9*d,M:19.895+0.0830853001*d};
-    case"saturn":return{N:113.6634+2.3898e-5*d,i:2.4886-1.081e-7*d,w:339.3939+2.97661e-5*d,a:9.55475,e:0.055546-9.499e-9*d,M:316.967+0.0334442282*d};
-    case"uranus":return{N:74.0005+1.3978e-5*d,i:0.7733+1.9e-8*d,w:96.6612+3.0565e-5*d,a:19.18171-1.55e-8*d,e:0.047318+7.45e-9*d,M:142.5905+0.011725806*d};
-    case"neptune":return{N:131.7806+3.0173e-5*d,i:1.77-2.55e-7*d,w:272.8461-6.027e-6*d,a:30.05826+3.313e-8*d,e:0.008606+2.15e-9*d,M:260.2471+0.005995147*d};
-  }}
-  function h2g(lon,lat,r,s){var xh=r*cos(lon)*cos(lat),yh=r*sin(lon)*cos(lat),zh=r*sin(lat);var xg=xh+s.x,yg=yh+s.y;return{lon:rev(toDeg(Math.atan2(yg,xg))),lat:toDeg(Math.atan2(zh,Math.sqrt(xg*xg+yg*yg))),r:r};}
-  function geo(b,date){
-    var d=dayNumber(date),s=sunState(d);
-    if(b==="sun")return{lon:s.lon,lat:0,r:s.r};
-    if(b==="moon"){var N=125.1228-0.0529538083*d,i=5.1454,w=318.0634+0.1643573223*d,a=60.2666,e=0.0549,M=115.3654+13.0649929509*d;var m=fromEl(N,i,w,a,e,M);var Ms=rev(s.M),Mm=rev(M),Ls=rev(s.M+s.w),Lm=rev(N+w+M),Dm=rev(Lm-Ls),F=rev(Lm-N);var lon=m.lon-1.274*sin(Mm-2*Dm)+0.658*sin(2*Dm)-0.186*sin(Ms)-0.059*sin(2*Mm-2*Dm)-0.057*sin(Mm-2*Dm+Ms)+0.053*sin(Mm+2*Dm)+0.046*sin(2*Dm-Ms)+0.041*sin(Mm-Ms)-0.035*sin(Dm)-0.031*sin(Mm+Ms)-0.015*sin(2*F-2*Dm)+0.011*sin(Mm-4*Dm);var lat=m.lat-0.173*sin(F-2*Dm)-0.055*sin(Mm-F-2*Dm)-0.046*sin(Mm+F-2*Dm)+0.033*sin(F+2*Dm)+0.017*sin(2*Mm+F);return{lon:rev(lon),lat:lat,r:m.r};}
-    if(b==="pluto"){var S=50.03+0.033459652*d,P=238.95+0.003968789*d;var lo=238.9508+0.00400703*d-19.799*sin(P)+19.848*cos(P)+0.897*sin(2*P)-4.956*cos(2*P)+0.61*sin(3*P)+1.211*cos(3*P)-0.341*sin(4*P)-0.19*cos(4*P)+0.128*sin(5*P)-0.034*cos(5*P)-0.038*sin(6*P)+0.031*cos(6*P)+0.02*sin(S-P)-0.01*cos(S-P);var la=-3.9082-5.453*sin(P)-14.975*cos(P)+3.527*sin(2*P)+1.673*cos(2*P)-1.051*sin(3*P)+0.328*cos(3*P)+0.179*sin(4*P)-0.292*cos(4*P)+0.019*sin(5*P)+0.1*cos(5*P)-0.031*sin(6*P)-0.026*cos(6*P)+0.011*cos(S-P);var rr=40.72+6.68*sin(P)+6.9*cos(P)-1.18*sin(2*P)-0.03*cos(2*P)+0.15*sin(3*P)-0.14*cos(3*P);return h2g(lo,la,rr,s);}
-    var el=elements(b,d),h=fromEl(el.N,el.i,el.w,el.a,el.e,el.M),lon2=h.lon,lat2=h.lat;var Mj=rev(19.895+0.0830853001*d),Msa=rev(316.967+0.0334442282*d),Mu=rev(142.5905+0.011725806*d);
-    if(b==="jupiter"){lon2+=-0.332*sin(2*Mj-5*Msa-67.6)-0.056*sin(2*Mj-2*Msa+21)+0.042*sin(3*Mj-5*Msa+21)-0.036*sin(Mj-2*Msa)+0.022*cos(Mj-Msa)+0.023*sin(2*Mj-3*Msa+52)-0.016*sin(Mj-5*Msa-69);}
-    else if(b==="saturn"){lon2+=0.812*sin(2*Mj-5*Msa-67.6)-0.229*cos(2*Mj-4*Msa-2)+0.119*sin(Mj-2*Msa-3)+0.046*sin(2*Mj-6*Msa-69)+0.014*sin(Mj-3*Msa+32);lat2+=-0.02*cos(2*Mj-4*Msa-2)+0.018*sin(2*Mj-6*Msa-49);}
-    else if(b==="uranus"){lon2+=0.04*sin(Msa-2*Mu+6)+0.035*sin(Msa-3*Mu+33)-0.015*sin(Mj-Mu+20);}
-    return h2g(rev(lon2),lat2,h.r,s);
+function dayNumber(date){
+ var Y=date.getUTCFullYear(),M=date.getUTCMonth()+1,D=date.getUTCDate();
+ var ut=date.getUTCHours()+date.getUTCMinutes()/60+date.getUTCSeconds()/3600;
+ return 367*Y-Math.floor((7*(Y+Math.floor((M+9)/12)))/4)+Math.floor((275*M)/9)+D-730530+ut/24;
+}
+function kepler(M,e){
+ M=rev(M);var E=M+toDeg(e)*sin(M)*(1+e*cos(M));
+ if(e>0.05){for(var i=0;i<12;i++){var dE=(E-toDeg(e)*sin(E)-M)/(1-e*cos(E));E-=dE;if(Math.abs(dE)<1e-7)break;}}
+ return E;
+}
+function sunState(d){
+ var w=282.9404+4.70935e-5*d,e=0.016709-1.151e-9*d,M=356.047+0.9856002585*d;
+ var E=kepler(M,e),xv=cos(E)-e,yv=Math.sqrt(1-e*e)*sin(E);
+ var v=toDeg(Math.atan2(yv,xv)),r=Math.sqrt(xv*xv+yv*yv),lon=rev(v+w);
+ return{lon:lon,r:r,x:r*cos(lon),y:r*sin(lon),M:M,w:w};
+}
+function fromEl(N,i,w,a,e,M){
+ var E=kepler(M,e),xv=a*(cos(E)-e),yv=a*Math.sqrt(1-e*e)*sin(E);
+ var v=toDeg(Math.atan2(yv,xv)),r=Math.sqrt(xv*xv+yv*yv);
+ var xh=r*(cos(N)*cos(v+w)-sin(N)*sin(v+w)*cos(i));
+ var yh=r*(sin(N)*cos(v+w)+cos(N)*sin(v+w)*cos(i));
+ var zh=r*(sin(v+w)*sin(i));
+ return{lon:rev(toDeg(Math.atan2(yh,xh))),lat:toDeg(Math.atan2(zh,Math.sqrt(xh*xh+yh*yh))),r:r};
+}
+function elements(b,d){
+ switch(b){
+ case"mercury":return{N:48.3313+3.24587e-5*d,i:7.0047+5e-8*d,w:29.1241+1.01444e-5*d,a:.387098,e:.205635+5.59e-10*d,M:168.6562+4.0923344368*d};
+ case"venus":return{N:76.6799+2.4659e-5*d,i:3.3946+2.75e-8*d,w:54.891+1.38374e-5*d,a:.72333,e:.006773-1.302e-9*d,M:48.0052+1.6021302244*d};
+ case"mars":return{N:49.5574+2.11081e-5*d,i:1.8497-1.78e-8*d,w:286.5016+2.92961e-5*d,a:1.523688,e:.093405+2.516e-9*d,M:18.6021+.5240207766*d};
+ case"jupiter":return{N:100.4542+2.76854e-5*d,i:1.303-1.557e-7*d,w:273.8777+1.64505e-5*d,a:5.20256,e:.048498+4.469e-9*d,M:19.895+.0830853001*d};
+ case"saturn":return{N:113.6634+2.3898e-5*d,i:2.4886-1.081e-7*d,w:339.3939+2.97661e-5*d,a:9.55475,e:.055546-9.499e-9*d,M:316.967+.0334442282*d};
+ case"uranus":return{N:74.0005+1.3978e-5*d,i:.7733+1.9e-8*d,w:96.6612+3.0565e-5*d,a:19.18171-1.55e-8*d,e:.047318+7.45e-9*d,M:142.5905+.011725806*d};
+ case"neptune":return{N:131.7806+3.0173e-5*d,i:1.77-2.55e-7*d,w:272.8461-6.027e-6*d,a:30.05826+3.313e-8*d,e:.008606+2.15e-9*d,M:260.2471+.005995147*d};
+ }
+}
+function h2g(lon,lat,r,s){
+ var xh=r*cos(lon)*cos(lat),yh=r*sin(lon)*cos(lat),zh=r*sin(lat);
+ var xg=xh+s.x,yg=yh+s.y;
+ return{lon:rev(toDeg(Math.atan2(yg,xg))),lat:toDeg(Math.atan2(zh,Math.sqrt(xg*xg+yg*yg))),r:r};
+}
+function geo(b,date){
+ var d=dayNumber(date),s=sunState(d);
+ if(b==="sun")return{lon:s.lon,lat:0,r:s.r};
+ if(b==="moon"){
+  var N=125.1228-.0529538083*d,i=5.1454,w=318.0634+.1643573223*d,a=60.2666,e=.0549,M=115.3654+13.0649929509*d;
+  var m=fromEl(N,i,w,a,e,M),Ms=rev(s.M),Mm=rev(M),Ls=rev(s.M+s.w),Lm=rev(N+w+M),Dm=rev(Lm-Ls),F=rev(Lm-N);
+  var lon=m.lon-1.274*sin(Mm-2*Dm)+.658*sin(2*Dm)-.186*sin(Ms)-.059*sin(2*Mm-2*Dm)-.057*sin(Mm-2*Dm+Ms)+.053*sin(Mm+2*Dm)+.046*sin(2*Dm-Ms)+.041*sin(Mm-Ms)-.035*sin(Dm)-.031*sin(Mm+Ms)-.015*sin(2*F-2*Dm)+.011*sin(Mm-4*Dm);
+  var lat=m.lat-.173*sin(F-2*Dm)-.055*sin(Mm-F-2*Dm)-.046*sin(Mm+F-2*Dm)+.033*sin(F+2*Dm)+.017*sin(2*Mm+F);
+  return{lon:rev(lon),lat:lat,r:m.r};
+ }
+ if(b==="pluto"){
+  var S=50.03+.033459652*d,P=238.95+.003968789*d;
+  var lo=238.9508+.00400703*d-19.799*sin(P)+19.848*cos(P)+.897*sin(2*P)-4.956*cos(2*P)+.61*sin(3*P)+1.211*cos(3*P)-.341*sin(4*P)-.19*cos(4*P)+.128*sin(5*P)-.034*cos(5*P)-.038*sin(6*P)+.031*cos(6*P)+.02*sin(S-P)-.01*cos(S-P);
+  var la=-3.9082-5.453*sin(P)-14.975*cos(P)+3.527*sin(2*P)+1.673*cos(2*P)-1.051*sin(3*P)+.328*cos(3*P)+.179*sin(4*P)-.292*cos(4*P)+.019*sin(5*P)+.1*cos(5*P)-.031*sin(6*P)-.026*cos(6*P)+.011*cos(S-P);
+  var rr=40.72+6.68*sin(P)+6.9*cos(P)-1.18*sin(2*P)-.03*cos(2*P)+.15*sin(3*P)-.14*cos(3*P);
+  return h2g(lo,la,rr,s);
+ }
+ var el=elements(b,d),h=fromEl(el.N,el.i,el.w,el.a,el.e,el.M),lon2=h.lon,lat2=h.lat;
+ var Mj=rev(19.895+.0830853001*d),Msa=rev(316.967+.0334442282*d),Mu=rev(142.5905+.011725806*d);
+ if(b==="jupiter")lon2+=-.332*sin(2*Mj-5*Msa-67.6)-.056*sin(2*Mj-2*Msa+21)+.042*sin(3*Mj-5*Msa+21)-.036*sin(Mj-2*Msa)+.022*cos(Mj-Msa)+.023*sin(2*Mj-3*Msa+52)-.016*sin(Mj-5*Msa-69);
+ else if(b==="saturn"){lon2+=.812*sin(2*Mj-5*Msa-67.6)-.229*cos(2*Mj-4*Msa-2)+.119*sin(Mj-2*Msa-3)+.046*sin(2*Mj-6*Msa-69)+.014*sin(Mj-3*Msa+32);lat2+=-.02*cos(2*Mj-4*Msa-2)+.018*sin(2*Mj-6*Msa-49);}
+ else if(b==="uranus")lon2+=.04*sin(Msa-2*Mu+6)+.035*sin(Msa-3*Mu+33)-.015*sin(Mj-Mu+20);
+ return h2g(rev(lon2),lat2,h.r,s);
+}
+function rate(b,date){
+ var t=date.getTime(),ms=.3*864e5,a=geo(b,new Date(t-ms)).lon,c=geo(b,new Date(t+ms)).lon;
+ return (((c-a+540)%360)-180)/.6;
+}
+function signOf(lon){
+ var ll=rev(lon),i=Math.floor(ll/30);return{i:i,name:SIGNS[i],deg:ll-i*30};
+}
+function fmtDeg(deg){
+ var d=Math.floor(deg),m=Math.round((deg-d)*60);if(m===60){m=0;d++}return d+"°"+(m<10?"0":"")+m+"′";
+}
+function angleDiff(a,b){var d=Math.abs(rev(a)-rev(b));return d>180?360-d:d}
+function polar(angle,r){var a=(angle-90)*RAD;return{x:195+Math.cos(a)*r,y:195+Math.sin(a)*r}}
+function ringPath(start,end,r1,r2){
+ var a1=polar(start,r2),a2=polar(end,r2),b2=polar(end,r1),b1=polar(start,r1);
+ var large=end-start>180?1:0;
+ return"M"+a1.x+","+a1.y+" A"+r2+","+r2+" 0 "+large+" 1 "+a2.x+","+a2.y+
+       " L"+b2.x+","+b2.y+" A"+r1+","+r1+" 0 "+large+" 0 "+b1.x+","+b1.y+" Z";
+}
+function phase(date){
+ var e=rev(geo("moon",date).lon-geo("sun",date).lon),illum=(1-Math.cos(e*RAD))/2;
+ var n=e<11.25||e>=348.75?"Nov":e<78.75?"Dorůstající srpek":e<101.25?"První čtvrť":e<168.75?"Dorůstající Měsíc":e<191.25?"Úplněk":e<258.75?"Couvající Měsíc":e<281.25?"Poslední čtvrť":"Couvající srpek";
+ return{elong:e,illum:illum,name:n,waxing:e<180};
+}
+function moonShape(ph,cx,cy,r){
+ var rx=r*Math.abs(1-2*ph.illum),f1=ph.waxing?1:0,f2=ph.waxing?(ph.illum>.5?1:0):(ph.illum>.5?0:1);
+ return"M "+cx+" "+(cy-r)+" A "+r+" "+r+" 0 0 "+f1+" "+cx+" "+(cy+r)+" A "+rx+" "+r+" 0 0 "+f2+" "+cx+" "+(cy-r)+" Z";
+}
+var INGRESS_CACHE={};
+function nextIngress(body,from){
+ var dayKey=Math.floor(from/864e5),key=body+"-"+dayKey;
+ if(INGRESS_CACHE[key])return INGRESS_CACHE[key];
+ var start=signOf(geo(body,new Date(from)).lon).i,prev=from;
+ var sp=Math.max(Math.abs(rate(body,new Date(from))),.004);
+ var step=Math.min(Math.max(5/sp,.08),120)*864e5;
+ var horizon=from+35*365.25*864e5;
+ for(var t=from+step;t<horizon;t+=step){
+  var si=signOf(geo(body,new Date(t)).lon).i;
+  if(si!==start){
+   var lo=prev,hi=t;
+   for(var k=0;k<34;k++){
+    var mid=(lo+hi)/2;
+    if(signOf(geo(body,new Date(mid)).lon).i===start)lo=mid;else hi=mid;
+   }
+   var s=signOf(geo(body,new Date(hi+60000)).lon);
+   return INGRESS_CACHE[key]={at:hi,sign:s.name};
   }
-  function signOf(lon){var ll=rev(lon),k=Math.floor(ll/30);return{name:TROP_CZ[k],deg:ll-k*30,idx:k};}
-  function fmtDeg(x){var d=Math.floor(x),m=Math.round((x-d)*60);if(m===60){m=0;d+=1}return d+"°"+(m<10?"0":"")+m+"′";}
-  function rate(b,date){var t=date.getTime(),ms=0.3*864e5;var a=geo(b,new Date(t-ms)).lon,c=geo(b,new Date(t+ms)).lon;return (((c-a+540)%360)-180)/0.6;}
-  function phase(date){var e=rev(geo("moon",date).lon-geo("sun",date).lon); var illum=(1-Math.cos(e*RAD))/2; var name=e<11.25||e>=348.75?"Nov":e<78.75?"Dorůstající srpek":e<101.25?"První čtvrť":e<168.75?"Dorůstající měsíc":e<191.25?"Úplněk":e<258.75?"Couvající měsíc":e<281.25?"Poslední čtvrť":"Couvající srpek"; return {illum:illum,name:name}; }
-  function shortCD(ms){var sgn=ms<0?-1:1;ms=Math.abs(ms);var mn=ms/6e4;if(mn<90)return (sgn<0?"před ":"za ")+Math.max(1,Math.round(mn))+" min";var h=mn/60;if(h<48)return (sgn<0?"před ":"za ")+Math.round(h)+" h";var d=h/24;if(d<60)return (sgn<0?"před ":"za ")+Math.round(d)+" dní";return (sgn<0?"před ":"za ")+Math.round(d/30.4)+" měs";}
-  function nextIngress(body, from){
-    function signAt(t){return signOf(geo(body,new Date(t)).lon).idx}
-    var start=signAt(from), prevT=from;
-    var sp=Math.max(Math.abs(rate(body,new Date(from))),0.01), step=Math.min(Math.max(3/sp,0.05),20)*864e5, horizon=from+800*864e5;
-    for(var t=from+step;t<=horizon;t+=step){
-      if(signAt(t)!==start){var lo=prevT,hi=t;for(var k=0;k<40;k++){var mid=(lo+hi)/2;if(signAt(mid)===start)lo=mid;else hi=mid;} var s=signOf(geo(body,new Date(hi+6e4)).lon); return {at:hi, sign:s.name};}
-      prevT=t;
-    }
-    return null;
-  }
-  function snapshot(date){
-    return BODIES.map(function(m){
-      var lon=geo(m.id,date).lon, s=signOf(lon), r=rate(m.id,date), ni=nextIngress(m.id,date.getTime());
-      return {id:m.id,name:m.name,sym:m.sym,ac:m.ac,lon:lon,sign:s.name,signDeg:s.deg,retro:r<0,rate:r,ing:ni};
-    });
-  }
-  function polar(angle,r){var rd=(angle-90)*RAD; return {x:180+Math.cos(rd)*r,y:180+Math.sin(rd)*r}; }
-
-  function renderWheel(data){
-    var s='<svg viewBox="0 0 360 360" style="width:100%;max-width:760px;display:block;margin:0 auto;height:auto">';
-    s+='<defs><radialGradient id="glow" cx="50%" cy="50%"><stop offset="0%" stop-color="rgba(143,216,255,.18)"/><stop offset="100%" stop-color="rgba(143,216,255,0)"/></radialGradient></defs>';
-    s+='<circle cx="180" cy="180" r="166" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.14)"/><circle cx="180" cy="180" r="126" fill="none" stroke="rgba(255,255,255,.09)"/><circle cx="180" cy="180" r="56" fill="url(#glow)" stroke="rgba(255,255,255,.07)"/>';
-    for(var i=0;i<12;i++){
-      var a=polar(i*30,126), b=polar(i*30,166), l=polar(i*30+15,147);
-      s+='<line x1="'+a.x.toFixed(2)+'" y1="'+a.y.toFixed(2)+'" x2="'+b.x.toFixed(2)+'" y2="'+b.y.toFixed(2)+'" stroke="rgba(255,255,255,.10)"/>';
-      s+='<text x="'+l.x.toFixed(2)+'" y="'+l.y.toFixed(2)+'" fill="rgba(255,255,255,.42)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">'+WL[i]+'</text>';
-    }
-    data.forEach(function(p, idx){
-      var pos=polar(p.lon, 90 + (idx%3)*16), focus=p.id===state.focus;
-      if(focus) s+='<circle cx="'+pos.x.toFixed(2)+'" cy="'+pos.y.toFixed(2)+'" r="19" fill="none" stroke="'+p.ac+'" stroke-opacity=".24" stroke-width="4"/>';
-      s+='<circle cx="'+pos.x.toFixed(2)+'" cy="'+pos.y.toFixed(2)+'" r="'+(focus?12.5:10.5)+'" fill="rgba(10,13,19,.92)" stroke="'+p.ac+'" stroke-width="'+(focus?2.3:1.5)+'"/>';
-      s+='<text x="'+pos.x.toFixed(2)+'" y="'+(pos.y+0.5).toFixed(2)+'" fill="'+p.ac+'" font-size="'+(focus?14:12)+'" font-weight="700" text-anchor="middle" dominant-baseline="middle">'+p.sym+'</text>';
-    });
-    s+='<text x="180" y="171" fill="rgba(255,255,255,.9)" font-size="17" font-weight="700" text-anchor="middle">Observatoř</text>';
-    s+='<text x="180" y="191" fill="rgba(255,255,255,.38)" font-size="11" text-anchor="middle">živý animovaný orloj</text>';
-    s+='</svg>';
-    document.getElementById('wheel').innerHTML=s;
-  }
-
-  function renderList(data){
-    var el=document.getElementById('planetList');
-    el.innerHTML=data.map(function(p){
-      return '<div class="prow"><div class="pg" style="color:'+p.ac+'">'+p.sym+'</div><div class="pb"><div class="pn">'+p.name+'</div><div class="ps">'+p.sign+' '+fmtDeg(p.signDeg)+'</div></div><div>'+(p.retro?'<div class="pr">R</div>':'')+'</div></div>';
-    }).join('');
-  }
-
-  function renderFocus(data,date){
-    var p=data.find(function(x){return x.id===state.focus}) || data[1];
-    var ph=phase(date);
-    document.getElementById('focusGlyph').textContent=p.sym;
-    document.getElementById('focusTitle').textContent=p.name;
-    document.getElementById('focusSub').textContent=p.sign+' '+fmtDeg(p.signDeg)+(p.retro?' · retrográdní':' · přímý pohyb');
-    document.getElementById('focusSign').textContent=p.sign+' '+fmtDeg(p.signDeg);
-    document.getElementById('focusRate').textContent=Math.abs(p.rate).toFixed(2)+'° / den';
-    document.getElementById('focusIngress').textContent=p.ing ? (p.ing.sign+' '+shortCD(p.ing.at-date.getTime()).replace('za ','').replace('před ','')) : '—';
-    document.getElementById('focusLight').textContent=state.focus==='moon' ? Math.round(ph.illum*100)+' %' : '—';
-    document.getElementById('phaseLabel').textContent=ph.name;
-    document.getElementById('phaseLabel').dataset.illum = Math.round(ph.illum*100);
-    if(state.focus==='moon'){
-      document.getElementById('focusNote').textContent='Měsíc je nejrychlejší vrstva osobní observatoře — mění tón dne, náladu a atmosféru přibližně každé 2–3 dny. Další krok: navázat jeho pohyb na tvé osobní domy a tranzity.';
-    } else {
-      document.getElementById('focusNote').textContent=p.name+' je aktuálně nastaven jako fokus observatoře. V další verzi sem můžeme přidat vlastní poznámky, vazbu na nativ a zvýraznění přesných osobních tranzitů.';
-    }
-  }
-
-  function renderEvents(date){
-    var now = date.getTime();
-    var evs = BODIES.map(function(b){ var ing = nextIngress(b.id, now); return ing ? {name:b.name, sym:b.sym, sign:ing.sign, at:ing.at} : null; }).filter(Boolean);
-    evs.sort(function(a,b){return a.at-b.at});
-    var moonOnly = evs.filter(function(e){return e.name==='Měsíc'}).slice(0,2);
-    var rest = evs.filter(function(e){return e.name!=='Měsíc'}).slice(0,3);
-    var chosen = moonOnly.concat(rest).sort(function(a,b){return a.at-b.at}).slice(0,5);
-    document.getElementById('eventList').innerHTML = chosen.map(function(e){
-      return '<div class="ev"><div class="t">'+e.sym+' '+e.name+' → '+e.sign+'</div><div class="d">'+shortCD(e.at-now)+' · '+new Intl.DateTimeFormat('cs-CZ',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(e.at))+'</div></div>';
-    }).join('');
-  }
-
-  function renderClock(){
-    document.getElementById('clock').textContent = new Intl.DateTimeFormat('cs-CZ',{timeStyle:'medium', timeZone:'Europe/Prague'}).format(new Date());
-  }
-
-  function render(){
-    var date=new Date(state.t);
-    var data=snapshot(date);
-    renderWheel(data);
-    renderList(data);
-    renderFocus(data,date);
-    renderEvents(date);
-    document.getElementById('dateLabel').textContent=fmtDate(date);
-    document.getElementById('animLabel').textContent=state.playing ? 'běží' : 'zastaveno';
-    document.getElementById('playBtn').classList.toggle('on', state.playing);
-    document.getElementById('playBtn').textContent = state.playing ? '❚❚ Pauza' : '▶ Přehrát';
-    renderClock();
-  }
-
-  document.getElementById('playBtn').addEventListener('click', function(){ state.playing=!state.playing; render(); });
-  document.getElementById('nowBtn').addEventListener('click', function(){ state.t=Date.now(); render(); });
-  document.getElementById('speedSel').addEventListener('change', function(e){ state.speed=parseFloat(e.target.value)||1; });
-  document.getElementById('wheel').addEventListener('click', function(){
-    var idx=BODIES.findIndex(function(b){return b.id===state.focus});
-    state.focus=BODIES[(idx+1)%BODIES.length].id; render();
+  prev=t;
+ }
+ return null;
+}
+function shortTime(ms){
+ var mins=Math.abs(ms)/60000;
+ if(mins<90)return Math.round(mins)+" min";
+ var h=mins/60;if(h<48)return Math.round(h)+" h";
+ var d=h/24;if(d<60)return Math.round(d)+" dní";
+ var mo=d/30.44;if(mo<24)return Math.round(mo)+" měs.";
+ return(d/365.25).toFixed(1)+" r.";
+}
+function angles(B){
+ var date=new Date(B.utc),d=dayNumber(date),JD=d+2451543.5,T=(JD-2451545)/36525;
+ var GMST=rev(280.46061837+360.98564736629*(JD-2451545)+.000387933*T*T-T*T*T/38710000);
+ var RAMC=rev(GMST+B.long),eps=23.439291-.0130042*T-1.64e-7*T*T+5.04e-7*T*T*T;
+ var lonFromRA=function(a){return rev(toDeg(Math.atan2(sin(a),cos(a)*cos(eps))))};
+ var MC=lonFromRA(RAMC);
+ var ascA=rev(toDeg(Math.atan2(-cos(RAMC),sin(RAMC)*cos(eps)+Math.tan(B.lat*RAD)*sin(eps))));
+ var ASC=(rev(ascA-MC)>0&&rev(ascA-MC)<180)?ascA:rev(ascA+180);
+ return{asc:ASC,mc:MC};
+}
+function makeNatal(){
+ var d=new Date(BIRTH.utc),A=angles(BIRTH);
+ var list=BODIES.map(function(b){var lon=geo(b.id,d).lon,s=signOf(lon);return{id:b.id,name:b.name,sym:b.sym,color:b.color,lon:lon,sign:s.name,deg:s.deg,retro:rate(b.id,d)<0}});
+ list.push({id:"asc",name:"Ascendent",sym:"AC",color:"#d7e2f5",lon:A.asc,sign:signOf(A.asc).name,deg:signOf(A.asc).deg,point:true});
+ list.push({id:"mc",name:"Medium coeli",sym:"MC",color:"#d7e2f5",lon:A.mc,sign:signOf(A.mc).name,deg:signOf(A.mc).deg,point:true});
+ return{list:list,asc:A.asc,mc:A.mc};
+}
+var ASP=[
+ {name:"konjunkce",sym:"☌",deg:0,orb:6,type:"conj"},
+ {name:"sextil",sym:"⚹",deg:60,orb:3,type:"soft"},
+ {name:"kvadratura",sym:"□",deg:90,orb:4,type:"hard"},
+ {name:"trigon",sym:"△",deg:120,orb:4,type:"soft"},
+ {name:"opozice",sym:"☍",deg:180,orb:6,type:"hard"}
+];
+function bestAspect(lon1,lon2,scale){
+ var d=angleDiff(lon1,lon2),best=null;
+ ASP.forEach(function(a){var o=Math.abs(d-a.deg),lim=a.orb*(scale||1);if(o<=lim&&(!best||o<best.orb))best={name:a.name,sym:a.sym,type:a.type,orb:o,angle:a.deg}});
+ return best;
+}
+function skyAspects(data){
+ var out=[];
+ for(var i=0;i<data.length;i++)for(var j=i+1;j<data.length;j++){
+  var a=bestAspect(data[i].lon,data[j].lon,.75);
+  if(a)out.push({a:data[i],b:data[j],name:a.name,sym:a.sym,type:a.type,orb:a.orb});
+ }
+ return out.sort(function(x,y){return x.orb-y.orb});
+}
+function personalAspects(data,natal){
+ var out=[],slowWeight={sun:1,moon:.5,mercury:1,venus:1.1,mars:1.4,jupiter:2.2,saturn:3.2,uranus:3.8,neptune:4.1,pluto:4.4};
+ data.forEach(function(t){
+  natal.list.forEach(function(n){
+   var a=bestAspect(t.lon,n.lon,n.point?.8:1);
+   if(a){
+    var score=a.orb/(slowWeight[t.id]||1);
+    out.push({t:t,n:n,name:a.name,sym:a.sym,type:a.type,orb:a.orb,score:score});
+   }
   });
-
-  var last=performance.now();
-  function loop(ts){
-    var dt=(ts-last)/1000; last=ts;
-    if(state.playing){ state.t += dt * 3600 * 1000 * state.speed; render(); }
-    requestAnimationFrame(loop);
+ });
+ return out.sort(function(x,y){return x.score-y.score});
+}
+function snapshot(date){
+ return BODIES.map(function(b){
+  var lon=geo(b.id,date).lon,s=signOf(lon);
+  return{id:b.id,name:b.name,sym:b.sym,color:b.color,lon:lon,sign:s.name,deg:s.deg,retro:rate(b.id,date)<0,rate:rate(b.id,date)};
+ });
+}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+function fmtDate(date,opts){return new Intl.DateTimeFormat("cs-CZ",opts).format(date)}
+function viewDate(){
+ var d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+state.offset);return d;
+}
+function renderClock(){
+ document.getElementById("clock").textContent=new Intl.DateTimeFormat("cs-CZ",{hour:"2-digit",minute:"2-digit",second:"2-digit",timeZone:"Europe/Prague"}).format(new Date());
+}
+function drawOrloj(date,data,natal,sky){
+ var ph=phase(date),svg=document.getElementById("orloj"),s="";
+ s+='<defs>'+
+ '<radialGradient id="bgDisc"><stop offset="0" stop-color="#10295a"/><stop offset=".58" stop-color="#091a38"/><stop offset="1" stop-color="#030914"/></radialGradient>'+
+ '<linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#72511b"/><stop offset=".22" stop-color="#f1d37d"/><stop offset=".48" stop-color="#9b742d"/><stop offset=".72" stop-color="#f4dc8a"/><stop offset="1" stop-color="#684817"/></linearGradient>'+
+ '<radialGradient id="solar"><stop offset="0" stop-color="#fff7c6"/><stop offset=".32" stop-color="#f4d88a"/><stop offset=".7" stop-color="#a65d20"/><stop offset="1" stop-color="#301509"/></radialGradient>'+
+ '<filter id="goldGlow"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'+
+ '<filter id="softGlow"><feGaussianBlur stdDeviation="5"/></filter>'+
+ '</defs>';
+ s+='<circle cx="195" cy="195" r="187" fill="#02050c" stroke="url(#brass)" stroke-width="5"/>';
+ s+='<circle cx="195" cy="195" r="181" fill="url(#bgDisc)" stroke="rgba(244,216,138,.35)" stroke-width=".8"/>';
+ s+='<circle cx="195" cy="195" r="176" fill="none" stroke="rgba(244,216,138,.15)" stroke-width="6" stroke-dasharray="1.2 5.2"/>';
+ for(var z=0;z<12;z++){
+  var path=ringPath(z*30,(z+1)*30,143,173);
+  var fill=z%2===0?"rgba(18,48,103,.72)":"rgba(8,24,56,.8)";
+  s+='<path d="'+path+'" fill="'+fill+'" stroke="rgba(214,175,85,.24)" stroke-width=".7"/>';
+  var p=polar(z*30+15,158);
+  s+='<text class="zodiac-glyph" x="'+p.x+'" y="'+(p.y-2)+'" text-anchor="middle" dominant-baseline="middle">'+SIGN_GLYPH[z]+'</text>';
+  s+='<text class="zodiac-name" x="'+p.x+'" y="'+(p.y+12)+'" text-anchor="middle">'+SIGN_SHORT[z]+'</text>';
+ }
+ for(var deg=0;deg<360;deg+=2){
+  var major=deg%30===0,mid=deg%10===0,r1=major?136:mid?138:140,r2=major?177:mid?175:173;
+  var a=polar(deg,r1),b=polar(deg,r2);
+  s+='<line x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'" stroke="'+(major?"rgba(244,216,138,.62)":"rgba(244,216,138,.22)")+'" stroke-width="'+(major?1.15:.35)+'"/>';
+ }
+ [["N",0],["E",90],["S",180],["W",270]].forEach(function(x){
+  var p=polar(x[1],183);s+='<text x="'+p.x+'" y="'+(p.y+3)+'" fill="rgba(244,216,138,.55)" font-size="6.5" text-anchor="middle">'+x[0]+'</text>';
+ });
+ s+='<circle cx="195" cy="195" r="137" fill="rgba(2,8,19,.44)" stroke="rgba(214,175,85,.22)" stroke-width="1"/>';
+ s+='<circle cx="195" cy="195" r="106" fill="none" stroke="rgba(203,217,239,.17)" stroke-width=".65" stroke-dasharray="2 3"/>';
+ s+='<circle cx="195" cy="195" r="86" fill="none" stroke="rgba(214,175,85,.14)" stroke-width=".7"/>';
+ sky.slice(0,6).forEach(function(a){
+  var p1=polar(a.a.lon,117+(BODIES.indexOf(BMAP[a.a.id])%2)*8),p2=polar(a.b.lon,117+(BODIES.indexOf(BMAP[a.b.id])%2)*8);
+  var col=a.type==="hard"?"#a44b52":a.type==="soft"?"#7ca9b6":"#d6af55";
+  s+='<line x1="'+p1.x+'" y1="'+p1.y+'" x2="'+p2.x+'" y2="'+p2.y+'" stroke="'+col+'" stroke-opacity="'+Math.max(.23,.72-a.orb*.12)+'" stroke-width="'+(a.orb<1?1.15:.7)+'"/>';
+ });
+ natal.list.forEach(function(n,i){
+  var r=n.point?135:92+(i%2)*5,p=polar(n.lon,r),sz=n.point?4.3:3.3;
+  if(n.point){
+   s+='<path d="M '+p.x+' '+(p.y-sz)+' L '+(p.x+sz)+' '+p.y+' L '+p.x+' '+(p.y+sz)+' L '+(p.x-sz)+' '+p.y+' Z" fill="#d7e2f5" fill-opacity=".82"/>';
+   var lp=polar(n.lon,82);
+   s+='<text class="natal-glyph" x="'+lp.x+'" y="'+(lp.y+3)+'" text-anchor="middle">'+n.sym+'</text>';
+  }else{
+   s+='<circle cx="'+p.x+'" cy="'+p.y+'" r="3.2" fill="#07101e" stroke="'+n.color+'" stroke-opacity=".82" stroke-width=".8"/>';
+   s+='<text class="natal-glyph" x="'+p.x+'" y="'+(p.y+2.6)+'" text-anchor="middle">'+n.sym+'</text>';
   }
-  render();
-  var sn=document.getElementById('scriptNotice'); if(sn)sn.style.display='none';
-  setInterval(renderClock,1000);
-  requestAnimationFrame(loop);
+ });
+ data.forEach(function(p,i){
+  var r=118+(i%3)*7,pos=polar(p.lon,r),selected=p.id===state.selected;
+  if(selected)s+='<circle cx="'+pos.x+'" cy="'+pos.y+'" r="13" fill="none" stroke="'+p.color+'" stroke-opacity=".28" stroke-width="3" filter="url(#goldGlow)"/>';
+  s+='<g class="orloj-click" data-planet="'+p.id+'">'+
+     '<circle cx="'+pos.x+'" cy="'+pos.y+'" r="'+(selected?9.7:8.2)+'" fill="#061020" stroke="'+p.color+'" stroke-width="'+(selected?1.8:1.15)+'"/>'+
+     '<text class="planet-glyph" x="'+pos.x+'" y="'+(pos.y+.7)+'" fill="'+p.color+'" font-size="'+(selected?12.8:11)+'" text-anchor="middle" dominant-baseline="middle">'+p.sym+'</text>'+
+     (p.retro?'<text x="'+(pos.x+8)+'" y="'+(pos.y-8)+'" fill="#f4d88a" font-size="5.5">R</text>':'')+
+     '</g>';
+ });
+ s+='<circle class="center-glow" cx="195" cy="195" r="54" fill="#d6af55" opacity=".12" filter="url(#softGlow)"/>';
+ s+='<circle cx="195" cy="195" r="47" fill="#050914" stroke="url(#brass)" stroke-width="2"/>';
+ s+='<circle cx="195" cy="195" r="38" fill="url(#solar)" opacity=".95"/>';
+ s+='<circle cx="195" cy="195" r="28" fill="#07101e"/>';
+ s+='<path d="'+moonShape(ph,195,195,27)+'" fill="#d7e2f5" fill-opacity=".92"/>';
+ s+='<ellipse cx="195" cy="195" rx="10" ry="5.2" fill="none" stroke="rgba(7,16,30,.7)" stroke-width="1.3"/>';
+ s+='<circle cx="195" cy="195" r="2.8" fill="#07101e"/>';
+ s+='<text class="orbit-label" x="195" y="244" text-anchor="middle" font-size="8.5">'+esc(ph.name)+'</text>';
+ s+='<text x="195" y="256" text-anchor="middle" fill="rgba(241,234,217,.48)" font-size="6.7" letter-spacing=".8">'+Math.round(ph.illum*100)+' % SVĚTLA</text>';
+ svg.innerHTML=s;
+ Array.prototype.forEach.call(svg.querySelectorAll("[data-planet]"),function(el){
+  el.addEventListener("click",function(){openPlanet(el.getAttribute("data-planet"))});
+ });
+}
+function closestPersonalForPlanet(id){
+ var a=state.personal.filter(function(x){return x.t.id===id})[0];return a||null
+}
+function openPlanet(id){
+ state.selected=id;render();
+ var p=state.snapshot.filter(function(x){return x.id===id})[0],n=state.natal.list.filter(function(x){return x.id===id})[0];
+ var ing=nextIngress(id,viewDate().getTime()),a=closestPersonalForPlanet(id);
+ document.getElementById("sheetGlyph").textContent=p.sym;
+ document.getElementById("sheetGlyph").style.color=p.color;
+ document.getElementById("sheetName").textContent=p.name;
+ document.getElementById("sheetPosition").textContent=p.sign+" "+fmtDeg(p.deg)+(p.retro?" · retrográdní":"");
+ document.getElementById("sheetMotion").textContent=(p.retro?"R · ":"D · ")+Math.abs(p.rate).toFixed(2)+"°/den";
+ document.getElementById("sheetIngress").textContent=ing?ing.sign+" · "+shortTime(ing.at-viewDate().getTime()):"—";
+ document.getElementById("sheetNatal").textContent=n?n.sign+" "+fmtDeg(n.deg):"—";
+ document.getElementById("sheetAspect").textContent=a?a.sym+" "+a.n.name+" · "+a.orb.toFixed(1)+"°":"žádná těsná";
+ document.getElementById("planetSheet").classList.add("open");
+}
+function renderRows(date,data,natal,personal,sky){
+ var ph=phase(date),moon=data[1],ms=signOf(moon.lon);
+ document.getElementById("moonTitle").textContent="Měsíc v "+(ms.name==="Beran"?"Beranu":ms.name==="Býk"?"Býku":ms.name==="Blíženci"?"Blížencích":ms.name==="Rak"?"Raku":ms.name==="Lev"?"Lvu":ms.name==="Panna"?"Panně":ms.name==="Váhy"?"Vahách":ms.name==="Štír"?"Štíru":ms.name==="Střelec"?"Střelci":ms.name==="Kozoroh"?"Kozorohu":ms.name==="Vodnář"?"Vodnáři":"Rybách");
+ document.getElementById("moonSubtitle").textContent=ph.name+" · "+Math.round(ph.illum*100)+" % osvětlení · "+fmtDeg(ms.deg);
+ var pi=personal[0];
+ document.getElementById("personalTransit").innerHTML=pi?esc(pi.t.name)+' <span class="transit-symbol">'+pi.sym+'</span> '+esc(pi.n.name):"Bez těsného tranzitu";
+ document.getElementById("personalTransitSub").textContent=pi?pi.name+" · orb "+pi.orb.toFixed(1)+"°":"v nastavených orbech";
+ var mi=nextIngress("moon",date.getTime());
+ document.getElementById("moonIngress").textContent=mi?"→ "+mi.sign:"—";
+ document.getElementById("moonIngressSub").textContent=mi?shortTime(mi.at-date.getTime())+" · "+fmtDate(new Date(mi.at),{hour:"2-digit",minute:"2-digit",weekday:"short"}):"—";
+ var sa=sky[0];
+ document.getElementById("skyAspect").innerHTML=sa?esc(sa.a.name)+' <span class="transit-symbol">'+sa.sym+'</span> '+esc(sa.b.name):"Bez těsného hlavního aspektu";
+ document.getElementById("skyAspectSub").textContent=sa?sa.name+" · orb "+sa.orb.toFixed(1)+"°":"v úzkém výběru";
+ document.getElementById("activeSkyBody").innerHTML=(personal.slice(0,5).map(function(a){
+  return'<div class="row"><div class="rg" style="color:'+a.t.color+'">'+a.t.sym+'</div><div class="rb"><div class="rt">'+esc(a.t.name)+' <span class="transit-symbol">'+a.sym+'</span> '+esc(a.n.name)+'</div><div class="rs">tranzitní → nativní · '+a.name+'</div></div><div class="rr">'+a.orb.toFixed(1)+'°</div></div>';
+ }).join("")||'<div class="row"><div class="rb"><div class="rt">Žádné těsné osobní vazby</div></div></div>');
+ document.getElementById("planetBody").innerHTML=data.map(function(p){
+  return'<div class="row orloj-click" data-rowplanet="'+p.id+'"><div class="rg" style="color:'+p.color+'">'+p.sym+'</div><div class="rb"><div class="rt">'+p.name+(p.retro?' <span class="badge">R</span>':'')+'</div><div class="rs">'+p.sign+' '+fmtDeg(p.deg)+'</div></div><div class="rr">'+Math.abs(p.rate).toFixed(2)+'°/d</div></div>';
+ }).join("");
+ document.getElementById("natalBody").innerHTML=natal.list.map(function(p){
+  return'<div class="row"><div class="rg" style="color:'+p.color+'">'+p.sym+'</div><div class="rb"><div class="rt">'+p.name+'</div><div class="rs">'+p.sign+' '+fmtDeg(p.deg)+'</div></div><div class="rr">'+(p.point?"osa":"nativ")+'</div></div>';
+ }).join("");
+ var ing=BODIES.map(function(p){var x=nextIngress(p.id,date.getTime());return x?{p:p,x:x}:null}).filter(Boolean).sort(function(a,b){return a.x.at-b.x.at}).slice(0,8);
+ document.getElementById("transitionBody").innerHTML=ing.map(function(o){
+  return'<div class="row"><div class="rg" style="color:'+o.p.color+'">'+o.p.sym+'</div><div class="rb"><div class="rt">'+o.p.name+' → '+o.x.sign+'</div><div class="rs">'+fmtDate(new Date(o.x.at),{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})+'</div></div><div class="rr">'+shortTime(o.x.at-date.getTime())+'</div></div>';
+ }).join("");
+ Array.prototype.forEach.call(document.querySelectorAll("[data-rowplanet]"),function(el){el.addEventListener("click",function(){openPlanet(el.getAttribute("data-rowplanet"))})});
+}
+function render(){
+ var date=viewDate(),data=snapshot(date);
+ if(!state.natal)state.natal=makeNatal();
+ state.snapshot=data;state.sky=skyAspects(data);state.personal=personalAspects(data,state.natal);
+ document.getElementById("dateLabel").textContent=fmtDate(date,{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+ document.getElementById("dateMode").textContent=state.offset===0?"živá obloha":(state.offset>0?"budoucí datum":"minulé datum");
+ drawOrloj(date,data,state.natal,state.sky);
+ renderRows(date,data,state.natal,state.personal,state.sky);
+ var key="orloj-journal-"+date.toISOString().slice(0,10);
+ document.getElementById("journal").value=localStorage.getItem(key)||"";
+}
+Array.prototype.forEach.call(document.querySelectorAll(".acc-head"),function(btn){
+ btn.addEventListener("click",function(){btn.parentElement.classList.toggle("open")});
+});
+document.getElementById("prevDay").addEventListener("click",function(){state.offset--;render()});
+document.getElementById("nextDay").addEventListener("click",function(){state.offset++;render()});
+document.getElementById("sheetClose").addEventListener("click",function(){document.getElementById("planetSheet").classList.remove("open")});
+document.getElementById("planetSheet").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open")});
+document.getElementById("saveJournal").addEventListener("click",function(){
+ var date=viewDate(),key="orloj-journal-"+date.toISOString().slice(0,10);
+ localStorage.setItem(key,document.getElementById("journal").value);
+ var s=document.getElementById("saved");s.classList.add("show");setTimeout(function(){s.classList.remove("show")},1400);
+});
+Array.prototype.forEach.call(document.querySelectorAll(".navbtn"),function(btn){
+ btn.addEventListener("click",function(){
+  var id=btn.getAttribute("data-target"),el=document.getElementById(id);
+  if(el&&el.classList.contains("acc"))el.classList.add("open");
+  if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+  document.querySelectorAll(".navbtn").forEach(function(b){b.classList.toggle("on",b===btn)});
+ });
+});
+renderClock();setInterval(renderClock,1000);render();
 })();
 </script>
-
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker.register("./sw.js").catch(function (err) {
-      console.warn("Service worker se nepodařilo zaregistrovat:", err);
-    });
-  });
+if("serviceWorker" in navigator){
+ window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){})});
 }
 </script>
 </body>
