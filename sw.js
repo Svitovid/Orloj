@@ -1,21 +1,48 @@
-/* Orloj service worker — offline-first app shell */
-var CACHE = "orloj-v2";
-var ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./orloj-icon-180.png", "./orloj-icon-512.png"];
-self.addEventListener("install", function(e){
-  e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); }).then(function(){ return self.skipWaiting(); }));
+/* Orloj observatory v0.2 — online-first homepage, offline fallback */
+const CACHE = "orloj-observatory-v0.2";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.webmanifest",
+  "./orloj-icon-180.png",
+  "./orloj-icon-512.png"
+];
+
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE)
+      .then(cache => Promise.allSettled(ASSETS.map(url => cache.add(url))))
+      .then(() => self.skipWaiting())
+  );
 });
-self.addEventListener("activate", function(e){
-  e.waitUntil(caches.keys().then(function(keys){
-    return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); }));
-  }).then(function(){ return self.clients.claim(); }));
+
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
+      .then(() => self.clients.claim())
+  );
 });
-self.addEventListener("fetch", function(e){
-  if (e.request.method !== "GET") return;
-  e.respondWith(
-    caches.match(e.request).then(function(hit){
-      return hit || fetch(e.request).then(function(res){
-        return caches.open(CACHE).then(function(c){ try{ c.put(e.request, res.clone()); }catch(_){} return res; });
-      }).catch(function(){ return caches.match("./index.html"); });
-    })
+
+self.addEventListener("fetch", event => {
+  if (event.request.method !== "GET") return;
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache => cache.put(event.request, copy)).catch(() => {});
+          return response;
+        })
+        .catch(() => caches.match(event.request).then(hit => hit || caches.match("./index.html")))
+    );
+    return;
+  }
+  event.respondWith(
+    caches.match(event.request).then(hit => hit || fetch(event.request).then(response => {
+      const copy = response.clone();
+      caches.open(CACHE).then(cache => cache.put(event.request, copy)).catch(() => {});
+      return response;
+    }))
   );
 });
