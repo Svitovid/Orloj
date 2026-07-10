@@ -1,0 +1,17 @@
+{
+  "name": "Orloj — živá obloha",
+  "short_name": "Orloj",
+  "description": "Osobní astrologicko-numerologický orloj — planety, znamení, domy, aspekty, tranzity, tarot, čísla. Vše počítáno offline.",
+  "lang": "cs",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0d13",
+  "theme_color": "#0a0d13",
+  "icons": [
+    { "src": "orloj-icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "orloj-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "orloj-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
