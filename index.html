@@ -2646,7 +2646,7 @@ details[open]>summary:after{content:'−'}
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", async function () {
     try {
-      var cacheFlag = "orloj-numogram-cache-v10";
+      var cacheFlag = "orloj-numogram-cache-v11";
       if (!localStorage.getItem(cacheFlag) && "caches" in window) {
         var keys = await caches.keys();
         await Promise.all(keys.map(function (key) { return caches.delete(key); }));
@@ -2658,7 +2658,7 @@ if ("serviceWorker" in navigator) {
         refreshing = true;
         window.location.reload();
       });
-      var registration = await navigator.serviceWorker.register("./sw.js?v=8", {
+      var registration = await navigator.serviceWorker.register("./sw.js?v=11", {
         updateViaCache: "none"
       });
       await registration.update();
