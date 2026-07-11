@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="cs">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Orloj">
-<meta name="theme-color" content="#0a0d13">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Orloj" name="apple-mobile-web-app-title"/>
+<meta content="#0a0d13" name="theme-color"/>
+<link href="manifest.webmanifest" rel="manifest"/>
+<link href="data:image/png;base64,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" rel="apple-touch-icon"/>
 <title>Orloj</title>
 <style>
   :root { color-scheme: dark; }
@@ -297,374 +298,479 @@
   .bar .bt { flex: 1; height: 10px; border-radius: 999px; background: rgba(255,255,255,.06); overflow: hidden; display: block; }
   .bar .bf { height: 100%; border-radius: 999px; display: block; }
   .bar .bc { width: 18px; text-align: right; font-size: 12px; font-weight: 700; flex: none; }
+
+
+/* === VISUAL REDESIGN OVERRIDES · keeping structure, changing look === */
+:root{
+  --bg:#000000;
+  --bg2:#05070c;
+  --panel:#0b0f17;
+  --panel2:#0f141d;
+  --line:rgba(255,255,255,.08);
+  --line-strong:rgba(255,255,255,.14);
+  --text:#f4f7fb;
+  --muted:rgba(255,255,255,.58);
+  --muted2:rgba(255,255,255,.38);
+  --gold:#d2b46d;
+  --gold-soft:rgba(210,180,109,.16);
+  --accent:#97b8ff;
+  --accent-soft:rgba(151,184,255,.16);
+  --danger:#ff8b78;
+  --ok:#89d8cb;
+  --shadow:0 12px 32px rgba(0,0,0,.42);
+}
+body{
+  background:
+    radial-gradient(900px 520px at 50% -12%, rgba(61,93,165,.16) 0%, transparent 60%),
+    radial-gradient(760px 520px at 50% 24%, rgba(255,255,255,.025) 0%, transparent 68%),
+    linear-gradient(180deg,#030405 0%, #000000 100%) !important;
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
+}
+body::before{opacity:.34;filter:blur(.1px);animation:none;background-size:340px 340px}
+body::after{opacity:.14;animation:none;background-size:410px 410px}
+.wrap{max-width:1180px;gap:14px;padding-bottom:20px}
+.head{
+  position:sticky;top:0;z-index:6;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+  padding:12px 6px 10px;
+  background:linear-gradient(180deg,rgba(0,0,0,.82),rgba(0,0,0,.55) 72%,transparent);
+  backdrop-filter:blur(12px);
+}
+.eyebrow{color:var(--muted2)!important;letter-spacing:.12em;text-transform:uppercase;font-size:11px!important}
+.head h1{font-size:44px;line-height:1.02;letter-spacing:-.03em;font-weight:700;margin:2px 0 0}
+.meta{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.meta b{font-size:32px;letter-spacing:-.03em}
+.meta i{font-style:normal;color:var(--muted);font-size:15px}
+.tabs{
+  gap:6px;background:rgba(255,255,255,.04)!important;border:1px solid var(--line)!important;
+  border-radius:18px; padding:6px; top:74px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(16px) saturate(120%);
+}
+.tabs button{font-size:13px;font-weight:650;color:var(--muted);border-radius:13px;padding:11px 12px;letter-spacing:-.01em}
+.tabs button.on{
+  background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.07));
+  color:#fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 1px 10px rgba(0,0,0,.22);
+}
+.card, .angle, .calcell, .bzcol{
+  background:linear-gradient(180deg,rgba(14,17,23,.92),rgba(8,11,16,.92)) !important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--shadow);
+}
+.card{border-radius:24px!important;padding:18px!important}
+.lbl,.k,.bzt,.cblbl,.caldow{color:var(--muted2)!important;letter-spacing:.12em;text-transform:uppercase}
+h2,h3,.v,.et,.rt,.ttl,.nmn{letter-spacing:-.025em}
+.note,.prelim,.ed,.rs,.fsub,.hexp,.pexp,.cbtext,.motln,.pathrow,.dgc,.exp p{color:var(--muted)!important}
+.badge, .live, .pkey, .nodes span, .cbchip.on, .pfb.on{
+  background:var(--gold-soft)!important;border-color:rgba(210,180,109,.35)!important;color:#f6deb3!important;
+}
+.btns button, .calnav button, .pfb, .cbchip{
+  background:rgba(255,255,255,.045)!important; border:1px solid var(--line-strong)!important;
+  color:var(--text)!important; border-radius:14px!important; font-weight:650!important;
+}
+.btns button:hover,.calnav button:hover,.pfb:hover,.cbchip:hover{background:rgba(255,255,255,.07)!important}
+input[type="range"]{accent-color:#cbb06b}
+.grid.sky-data-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:start}
+.side.sky-side{display:flex;flex-direction:column;gap:16px}
+.sky-controls-card{padding:18px 18px 16px!important}
+.hero-orloj-card{
+  padding:18px 18px 16px!important;
+  overflow:hidden;
+  background:
+    radial-gradient(520px 240px at 50% -12%, rgba(91,118,188,.13), transparent 64%),
+    linear-gradient(180deg, rgba(14,18,26,.96), rgba(8,11,16,.98)) !important;
+}
+.hero-orloj-card .hero-title{display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hero-orloj-card .hero-title h2{margin:2px 0 0;font-size:30px;font-weight:700}
+.hero-orloj-card .hero-title p{margin:0;color:var(--muted);font-size:14px}
+#wheel{margin:16px auto 0!important;display:flex;justify-content:center;align-items:center;min-height:340px}
+#wheel svg,#n-wheel svg,#cb-wheel svg{display:block;max-width:100%;height:auto;filter:drop-shadow(0 16px 28px rgba(0,0,0,.38))}
+.leg{margin-top:14px;justify-content:center;gap:16px;color:var(--muted2)!important;font-size:12px}
+.leg span{display:flex;align-items:center;gap:7px}
+.leg i{width:22px!important;height:2px!important;border-radius:999px}
+.asp{margin-top:12px;background:rgba(255,255,255,.028);border:1px solid var(--line);border-radius:18px;padding:8px 12px}
+.plist .prow, .pprow, .hrow, .evrow, .trow, .row{border-color:rgba(255,255,255,.05)!important}
+.plist,.asp,#events,#n-list,#n-aspects,#n-cusps,#n-stars,#n-nodes{border-radius:18px}
+.plist .prow,.evrow,.pprow,.hrow{padding-top:12px;padding-bottom:12px}
+.evlist,.asp{background:rgba(255,255,255,.022)!important}
+.angle .v{font-size:20px}
+.info{gap:8px 18px}
+.scale{color:var(--muted2)!important}
+.foot{text-align:center;color:var(--muted2)}
+
+/* mobile focus */
+@media (max-width: 860px){
+  .head{padding-left:2px;padding-right:2px;top:0}
+  .head h1{font-size:38px}
+  .meta b{font-size:28px}
+  .tabs{top:68px}
+  .grid.sky-data-grid{grid-template-columns:1fr}
+  .hero-orloj-card{order:0}
+  .sky-data-grid .plist{order:2}
+  .sky-data-grid .sky-side{order:3}
+}
+@media (max-width: 640px){
+  body{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}
+  .wrap{gap:12px}
+  .card{border-radius:22px!important;padding:16px!important}
+  .head{align-items:flex-start}
+  .head h1{font-size:34px}
+  .meta b{font-size:24px}
+  .meta i{font-size:13px}
+  .tabs{top:64px;border-radius:16px}
+  .tabs button{padding:10px 10px;font-size:12px}
+  .daterow{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+  .hero-orloj-card .hero-title h2{font-size:26px}
+  #wheel{min-height:300px}
+  .leg{justify-content:flex-start;gap:12px;flex-wrap:wrap}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="head">
-    <div><p class="eyebrow">Planetary tracker · živý stav oblohy</p><h1>Orloj</h1></div>
-    <div class="meta"><b id="clock">—</b><i>Uherský Brod</i></div>
-  </div>
-
-  <div class="tabs" id="tabs">
-    <button data-tab="sky" class="on">Obloha</button>
-    <button data-tab="planety">Planety</button>
-    <button data-tab="natal">Nativ</button>
-    <button data-tab="numero">Čísla</button>
-    <button data-tab="transit">Tranzity</button>
-    <button data-tab="syn">Synastrie</button>
-    <button data-tab="vyhled">Výhled</button>
-    <button data-tab="svet">Svět</button>
-    <button data-tab="denik">Deník</button>
-  </div>
-
-  <div id="panel-sky" class="panel">
-  <div class="card">
-    <div class="daterow">
-      <div><p class="lbl">Datum oblohy</p><h2 id="datev">—</h2></div>
-      <span class="badge live" id="badge"></span>
-    </div>
-    <input type="range" min="-730" max="730" step="1" value="0" id="slider" aria-label="Dní od dneška">
-    <div class="scale"><span>2 roky zpět</span><span>dnes</span><span>2 roky vpřed</span></div>
-    <div class="btns" id="btns">
-      <button data-d="-30">−1M</button><button data-d="-1">−1D</button><button data-today="1">Dnes</button><button data-d="1">+1D</button><button data-d="30">+1M</button><button id="anim-btn" title="Časosběr oblohy">▶</button>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="card plist" id="plist"></div>
-    <div class="side">
-      <div class="card" id="detail"></div>
-      <div class="card">
-        <p class="lbl">Živá obloha</p>
-        <h2 style="margin-top:2px;">Zvěrokruh</h2>
-        <div id="wheel" style="margin-top:10px;"></div>
-        <div class="leg"><span><i style="background:#75dfd4"></i>harmonické</span><span><i style="background:#ff8a76"></i>napjaté</span><span><i style="background:#f8c56b"></i>konjunkce</span></div>
-        <div class="asp" id="aspects"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="evhead">
-      <div><p class="lbl">Vzácné a významné · ťukni pro vysvětlení</p><h2>Nebeské úkazy</h2></div>
-      <div class="nodes" id="nodes"></div>
-    </div>
-    <div id="events"></div>
-    <p class="note">Typy zatmění jsou predikované z polohy Měsíce a u hranic se mohou o kategorii lišit.</p>
-  </div>
-
-  <div class="card">
-    <p class="lbl">Denní symbolická vrstva · dekan, lunární příbytek, měsíc naprázdno</p>
-    <div id="daily-sym" style="margin-top:8px;"></div>
-    <p class="note">Obrazy dekanů a významy příbytků jsou volné parafráze tradice (Picatrix, Agrippa); tarotová karta dekanu sleduje hermetické přiřazení Zlatého úsvitu. Karta Měsícova dekanu se mění zhruba denně — funguje jako karta dne. Vše se počítá k datu zvolenému nahoře.</p>
-  </div>
-
-  <div class="card">
-    <div class="calhead">
-      <div><p class="lbl">Lunární kalendář · fáze a znamení Měsíce den po dni</p><h3 id="cal-title">—</h3></div>
-      <div class="calnav"><button id="cal-prev" aria-label="Předchozí měsíc">‹</button><button id="cal-today">Dnes</button><button id="cal-next" aria-label="Další měsíc">›</button></div>
-    </div>
-    <div id="cal-body"></div>
-    <p class="note">Fáze a znamení jsou počítány k poledni daného dne. Nov a úplněk jsou označeny v den přesného okamžiku.</p>
-  </div>
-  </div><!-- /panel-sky -->
-
-  <div id="panel-natal" class="panel hidden">
-    <div class="card">
-      <p class="lbl">Nativní horoskop</p>
-      <div class="profsw" id="profsw-natal" style="margin-top:8px;"></div>
-      <h2 style="margin-top:12px;" id="n-title">—</h2>
-      <div class="info" id="n-info"></div>
-      <div class="angles">
-        <div class="angle"><div class="k">Ascendent (vých. obzor)</div><div class="v" id="n-asc">—</div></div>
-        <div class="angle"><div class="k">MC (medium coeli)</div><div class="v" id="n-mc">—</div></div>
-      </div>
-      <p class="prelim" id="n-note"></p>
-    </div>
-    <div class="card">
-      <p class="lbl">Hroty domů · Placidus</p>
-      <div id="n-cusps" style="margin-top:8px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Postavení planet při narození · ťukni na řádek pro studijní výklad</p>
-      <div id="n-list" style="margin-top:8px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Obloha v okamžiku narození</p>
-      <h2 style="margin-top:2px;">Nativní kolo</h2>
-      <div id="n-wheel" style="margin-top:10px;"></div>
-      <div class="leg"><span><i style="background:#bdebd4"></i>AC / MC</span><span><i style="background:#75dfd4"></i>harmonické</span><span><i style="background:#ff8a76"></i>napjaté</span></div>
-      <div class="asp" id="n-aspects"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Živly a kvality · z 10 těles nativu</p>
-      <h2 style="margin-top:2px;">Rovnováha živlů</h2>
-      <div id="n-elems" style="margin-top:12px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Dekany a lunární příbytek nativu · obrazy k meditaci</p>
-      <div id="n-decans" style="margin-top:6px;"></div>
-      <p class="prelim">Každému z 36 dekanů (10° zvěrokruhu) vládne planeta v chaldejském pořadí; obrazy jsou volné parafráze tradice (Picatrix, Agrippa). Lunárních příbytků je 28 — dům, v němž stál Měsíc při narození, se čte jako vrozené citové podnebí.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Tarotové korespondence nativu · ťukni na řádek pro výklad karet</p>
-      <div id="n-tarot" style="margin-top:6px;"></div>
-      <p class="prelim">Hermetické přiřazení (Zlatý úsvit): planety a znamení odpovídají velkým arkánám, 36 dekanů malým kartám 2–10 (tituly podle thothovské tradice). Číslování VIII Síla / XI Spravedlnost se mezi školami liší — držím řadu Rider–Waite. Ber jako studijní most: každou pozici chartu si můžeš vyložit i jazykem karet.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Aspekty v nativu · skutečné úhly mezi planetami · ťukni pro výklad</p>
-      <div id="n-aspects"></div>
-      <p class="prelim">Počítáno z tohoto chartu. Orb = odchylka od přesného úhlu; čím menší, tím silnější aspekt (řazeno od nejtěsnějšího). Zahrnuty jsou hlavní aspekty deseti těles: konjunkce, sextil, kvadratura, trigon, opozice. Luminárie (Slunce, Měsíc) mají o něco širší orb.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Uzlová osa a Lilith · směr růstu a stín</p>
-      <div id="n-nodes" style="margin-top:6px;"></div>
-      <p class="prelim">Měsíční uzly (☊ dračí hlava, ☋ dračí ocas) jsou body, kde se protíná dráha Měsíce s ekliptikou — osa duše: severní uzel je směr růstu, jižní zděděné pohodlí, které se učíš pouštět. Lilith (⚸ Černá Luna, měsíční apogeum) je nezkrotná, tabuizovaná síla a stín. Počítáno středními hodnotami k okamžiku narození.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Pevné hvězdy · planety na velkých stálicích</p>
-      <div id="n-stars" style="margin-top:6px;"></div>
-      <p class="prelim">Když planeta nebo úhel stojí do 1° na významné stálici, přebírá její tón. Délky hvězd jsou precesně posunuté k roku narození. Zobrazeny jen skutečné konjunkce v tomto chartu; čtyři „královské hvězdy“ (Aldebaran, Regulus, Antares, Fomalhaut) jsou nejmocnější.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Sabiánské symboly · obraz každého stupně</p>
-      <div id="n-sabian" style="margin-top:6px;"></div>
-      <p class="prelim">Každému z 360 stupňů zvěrokruhu náleží symbolický obraz (Marc Edmund Jones, 1925) — meditační klíč ke konkrétnímu stupni planety. Obrazy jsou převyprávěny vlastními slovy. Stupeň se počítá zaokrouhlením nahoru: 5°11′ = 6. stupeň.</p>
-    </div>
-  </div>
-
-  <div id="panel-numero" class="panel hidden">
-    <div class="card" style="padding:12px 14px;"><div class="profsw" id="profsw-num"></div></div>
-    <div class="numgrid" id="numgrid"></div>
-    <div class="card nbday">
-      <div class="cal" id="nb-cal">—</div>
-      <div><div class="bk">Narození</div><div class="bv" id="nb-date">—</div></div>
-    </div>
-    <div class="card">
-      <div class="ntoday">
-        <div><div class="td" id="num-todaydate">—</div><div class="tk">Denní čísla se počítají z dnešního data a tvého data narození.</div></div>
-        <div class="tnums">
-          <div style="text-align:center;"><div class="v" id="num-ud">—</div><div class="k">Univerzální den</div></div>
-          <div style="text-align:center;"><div class="v" id="num-pd">—</div><div class="k">Osobní den</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <p class="lbl">Co čísla znamenají</p>
-      <div id="num-mean"></div>
-      <p class="prelim">Příště doladíme: osudové číslo a číslo duše ze jména, výzvy a vrcholy (pinnacles).</p>
-    </div>
-    <div class="card">
-      <div class="ntoday">
-        <div><div class="td" id="dr-name">—</div><div class="tk" id="dr-desc"></div></div>
-        <div style="font-size:42px;line-height:1;" id="dr-glyph"></div>
-      </div>
-    </div>
-    <div class="card">
-      <p class="lbl">Planetární hodiny · počítáno z reálného východu a západu Slunce (Zlín / Uherský Brod)</p>
-      <div class="ntoday" style="margin-top:8px;">
-        <div><div class="td" id="ph-now">—</div><div class="tk" id="ph-desc"></div></div>
-        <div style="font-size:38px;line-height:1;" id="ph-glyph"></div>
-      </div>
-      <div class="phgrid" id="ph-grid"></div>
-      <p class="prelim">Starý chaldejský rytmus: denních i nočních hodin je vždy 12 — v létě jsou denní delší, v zimě kratší. První hodině dne vládne planeta dne, dál se střídají v pořadí Saturn–Jupiter–Mars–Slunce–Venuše–Merkur–Měsíc. Po 24 hodinách tak vychází vládce následujícího dne — odtud pořadí dnů v týdnu.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Čínský zodiak · dekodér roku</p>
-      <h2 style="margin-top:2px;">Který rok je které znamení</h2>
-      <div class="dec">
-        <button id="cz-minus" aria-label="Předchozí rok">−</button>
-        <input id="cz-year" type="number" inputmode="numeric" value="2026">
-        <button id="cz-plus" aria-label="Další rok">+</button>
-        <div class="decres"><div class="r1" id="cz-res">—</div><div class="r2" id="cz-trait"></div></div>
-      </div>
-      <p class="prelim">Čínský rok nezačíná 1. ledna, ale lunárním novým rokem (přelom ledna a února). Narození v lednu či začátkem února proto může patřit ještě k předchozímu znamení.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Přehled 1948–2031 · barva roku = živel · zvýrazněn rok profilu a aktuální</p>
-      <div class="czgrid" id="cz-grid"></div>
-      <div class="leg" style="margin-top:12px;"><span><i style="background:#9fd6a8"></i>dřevo</span><span><i style="background:#ff8a76"></i>oheň</span><span><i style="background:#f8c56b"></i>země</span><span><i style="background:#d8dee9"></i>kov</span><span><i style="background:#8fd8ff"></i>voda</span></div>
-    </div>
-      <div class="card">
-      <p class="lbl">Čtyři pilíře (BaZi) · čínský rozbor zrození</p>
-      <div class="profsw" id="profsw-bz" style="margin-top:8px;margin-bottom:10px;"></div>
-      <div id="bazi"></div>
-      <p class="prelim">Osm znaků (kmen + větev pro rok, měsíc, den a hodinu). Roční a měsíční pilíř se počítají ze solárních termů (rok začíná Lì-čhun ≈ 4. 2., ne lunárním novým rokem), denní z juliánského dne, hodinový z místního času narození. Denní kmen je „Denní pán“ — jádro tvého já. Rozbor pěti prvků ukazuje, čeho máš nadbytek a co pěstovat.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Jmenná numerologie · číslo z písmen jména</p>
-      <input type="text" id="nm-input" class="nm-inp" placeholder="Napiš celé jméno…" autocomplete="off"/>
-      <div id="nm-out" style="margin-top:6px;"></div>
-      <p class="prelim">Pythagorejský systém (A=1…I=9, J=1…). Číslo výrazu (osud) = všechna písmena, číslo duše (touha srdce) = samohlásky, číslo osobnosti = souhlásky. Diakritika se převádí na základní písmeno, Y se počítá jako samohláska. Mistrovská 11/22/33 se nekrátí.</p>
-    </div>
+<div class="head">
+<div><p class="eyebrow">Planetary tracker · živý stav oblohy</p><h1>Orloj</h1></div>
+<div class="meta"><b id="clock">—</b><i>Uherský Brod</i></div>
 </div>
-
-  <div id="panel-transit" class="panel hidden">
-    <div class="card">
-      <p class="lbl">Tranzity · co teď aktivuje chart</p>
-      <div class="profsw" id="profsw-tr" style="margin-top:8px;"></div>
-      <h2 style="margin-top:12px;">Aktuální tranzity</h2>
-      <p class="lead">Tranzit = kde je planeta na dnešní obloze vůči nativnímu postavení zvoleného profilu. Když tranzitní planeta utvoří aspekt na nativní bod, dané téma se „rozsvítí“. Pomalé planety (Saturn a výš) drží týdny až měsíce a váží nejvíc; Slunce a Měsíc jsou rychlé spouštěče.</p>
-      <div id="t-list" style="margin-top:14px;"></div>
-      <p class="prelim">Řazeno podle těsnosti (orb). Ťukni na řádek pro výklad a meditaci.</p>
-    </div>
-  </div>
-
-  <div id="panel-syn" class="panel hidden">
-    <div class="card">
-      <p class="lbl">Synastrie · dva charty v rozhovoru</p>
-      <h2 style="margin-top:2px;">Svitovid × Přítelkyně</h2>
-      <p class="lead">Synastrie porovnává dva nativní horoskopy: aspekty mezi tvými a jejími planetami ukazují, kde se vaše energie potkávají, podporují a kde se třou. Harmonické (trigon, sextil) plynou samy; napjaté (kvadratura, opozice) tvoří přitažlivost i třecí plochy — a bývá to právě ono, co vztah pohání a učí.</p>
-      <p class="lead"><b>Jak číst:</b> orb je odchylka od přesného úhlu — čím menší, tím silněji aspekt působí (do ~3° je „těsný“, v každodennosti nepřehlédnutelný). Kontakty osobních planet (Slunce, Měsíc, Merkur, Venuše, Mars) vypovídají o vás dvou; pomalé planety přidávají generační a osudový tón. Když stejné téma potvrzují dva různé aspekty — tzv. dvojité potvrzení — bývá pro vztah určující. Vy je máte hned dvakrát: u jejího Měsíce (tvůj Merkur i Mars) a na ose Venuše–Mars.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Společné kolo · vnější prstenec Svitovid, vnitřní Přítelkyně · čáry = nejtěsnější mezi-aspekty</p>
-      <div id="syn-wheel" style="margin-top:10px;"></div>
-      <div class="leg"><span><i style="background:#75dfd4"></i>harmonické</span><span><i style="background:#ff8a76"></i>napjaté</span><span><i style="background:#f8c56b"></i>konjunkce</span></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Klíčová spojení · studijní výklad — ťukni pro rozbalení</p>
-      <div id="syn-key"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Mezi-aspekty · seřazeno podle těsnosti</p>
-      <div id="syn-list"></div>
-      <p class="prelim">Konjunkce pomalých planet (Pluto ☌ Pluto, Neptun ☌ Neptun, Uran ☌ Uran) sdílí celý váš ročník — vypovídají o společném dobovém naladění generace, ne o vás dvou.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Shrnutí</p>
-      <div id="syn-sum"></div>
-    </div>
-  </div>
-
-  <div id="panel-vyhled" class="panel hidden">
-    <div class="card">
-      <p class="lbl">Výhled · predikční vrstvy</p>
-      <div class="profsw" id="profsw-vy" style="margin-top:8px;"></div>
-      <h2 style="margin-top:12px;">Co přichází</h2>
-      <p class="lead">Predikce v symbolických systémech není věštění výsledků, ale <b>mapa počasí</b>: říká, která témata a síly budou kdy aktivní — jestli poteče voda do mlýna stavby, vztahů, nebo pouštění. Co s tím počasím uděláš, zůstává na tobě. Tři nezávislé vrstvy níže (profekce, progrese, tranzity) se navzájem doplňují: kde se shodnou, tam je téma roku.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Roční profekce · helénistická technika časových pánů</p>
-      <div id="vy-prof" style="margin-top:8px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Sekundární progrese · den za rok — vnitřní období života</p>
-      <div id="vy-prog" style="margin-top:8px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Časová osa tranzitů · přesné zásahy pomalých planet v příštích 12 měsících · ťukni pro výklad</p>
-      <div id="vy-tl" style="margin-top:4px;"></div>
-      <p class="prelim">Jupiter–Pluto na nativní planety, Ascendent a MC. Značka R = planeta jde v tu chvíli retrográdně; pomalé planety se kvůli retrogradaci vracejí, táž lekce proto často přijde ve dvou či třech vlnách. Rychlé spouštěče (Slunce–Mars) sleduj v záložce Tranzity.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Numerologický výhled · devítiletý cyklus, vrcholy a výzvy</p>
-      <div id="vy-num" style="margin-top:8px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Mapa života · velké cykly na 100 let dopředu · ťukni pro smysl a praxi</p>
-      <div id="vy-life" style="margin-top:4px;"></div>
-      <p class="prelim">Kostra času, kterou sdílí každý lidský život — přesné roky jsou ale spočtené pro tento konkrétní chart (vlny retrogradací = víceleté okno, uvedeno celé). Mezi milníky žij podle ročních vrstev výše: profekce a osobní rok říkají, čemu patří tento rok; mapa života říká, čemu patří dekáda.</p>
-    </div>
-
-  </div>
-
-  <div id="panel-svet" class="panel hidden">
-    <div class="card">
-      <p class="lbl">Svět · kolektivní a stoleté vrstvy</p>
-      <h2 style="margin-top:2px;">Univerzální výhled</h2>
-      <p class="lead">Tady se Orloj dívá nad jednotlivé charty: rytmy, které sdílí celá doba — od nové éry vzduchu přes éry vnějších planet až po platónský rok. Nezávisí na profilu; je to počasí civilizace, ve kterém osobní mapy (záložka Výhled) plují.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Zatmění · nadcházející brány osudu</p>
-      <div id="sv-eclipse" style="margin-top:6px;"></div>
-      <p class="prelim">Zatmění nastává, když se novoluní (Slunce) nebo úplněk (Měsíc) potká blízko měsíčního uzlu. V tradici jsou to zesílené předěly — otevírají a zavírají příběhy zvlášť tam, kde padnou na tvé nativní planety. Počítáno na ~18 měsíců dopředu; stupeň ukazuje, kterou část zvěrokruhu rozsvítí.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Nová doba · co přináší vodnářský práh · ťukni pro studii</p>
-      <p class="lead">Nežijeme jednu změnu, ale souběh prahů: éra vzduchu (od 2020, na ~200 let), Pluto ve Vodnáři (do ~2044), Uran v Blížencích a Neptun v Beranu (2025–26) — a v pozadí pomalý příchod platónského věku Vodnáře. Nová doba nepřichází vypínačem; žijeme v překryvu dvou epoch. Generace rozené teď jsou domorodci nové éry — my jsme překladatelé a stavitelé mostů. Osm oblastí níže popisuje, co se mění, co to dává, kde to stíní a jak to uchopit.</p>
-      <div id="vy-nova" style="margin-top:6px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Platónský rok · precese a věk Vodnáře</p>
-      <div id="vy-plato" style="margin-top:8px;"></div>
-      <p class="prelim">Hranice věků jsou nejspornější údaj astrologie. Výpočet výše používá ayanamsu Lahiri a rychlost precese 50,29″ za rok; Fagan–Bradley dává začátek Vodnáře ≈ 2380, populární odhady sahají od 1962 do ~2600 a mnozí berou velkou konjunkci 2020 ve Vodnáři jako symbolickou bránu. Letopočty věků ber orientačně — jde o rytmus, ne o přesná data.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Velké konjunkce Jupiter–Saturn · tep dějin po 20 letech</p>
-      <div id="vy-gc" style="margin-top:8px;"></div>
-      <p class="prelim">Konjunkce Jupiter–Saturn („velká konjunkce") se ~200 let drží v jednom živlu. Éra země (1802–2020) postavila průmysl a kapitál; konjunkcí na 0° Vodnáře 21. 12. 2020 začala éra vzduchu — hodnota se stěhuje do informací, sítí a idejí. Trojité konjunkce (1940–41, 1980–81) vznikají retrogradací.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Cyklická historie · velké konjunkce roku 1–2100 podle er živlů · ťukni na éru</p>
-      <p class="lead">Velká konjunkce se opakuje ~každých 20 let a ~200 let zůstává v jednom živlu; přechod do dalšího živlu (velká mutace) tradice čte jako epochální předěl. Níže je všech 105 konjunkcí od roku 1 spočítaných enginem, seskupených do jedenácti er. U některých je doložená dobová událost — a nejsilnější jsou ty, na které lidé tehdy skutečně reagovali: konjunkci roku 1345 vinila pařížská lékařská fakulta z morové rány, z roku 1484 astrologové věštili náboženský převrat, rok 1524 spustil paniku z potopy a tu z roku 1603 pozoroval Kepler.</p>
-      <div id="vy-chist" style="margin-top:6px;"></div>
-      <p class="prelim">Data jsou počítaná, ne opsaná. Novověké konjunkce sedí na den (2020-12-21, 2000-05-28 ověřeno); u dat před ~rokem 1600 je spolehlivý rok a živel, přesný den je přibližný (nižší přesnost efemerid v hloubi minulosti). Historie je rezonance k přemýšlení, ne důkaz příčiny — mapa času, ne rozsudek.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Éry vnějších planet · kolektivní vědomí · ťukni pro výklad</p>
-      <div id="vy-eras" style="margin-top:4px;"></div>
-      <p class="prelim">Roky vstupů jsou počítané enginem (≈, bez retrográdních zajížděk). Uran se vrací za 84 let — jednou za lidský život; Neptun za 165, Pluto za ~248 let. Historické ozvěny jsou jazyk tradice: rytmy k přemýšlení, ne důkazy.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Století dopředu · kapitoly 2026–2126 · ťukni pro očekávání a přizpůsobení</p>
-      <div id="vy-cent" style="margin-top:4px;"></div>
-    </div>
-    <div class="card">
-      <p class="lbl">Osa století · vstupy vnějších planet a velké konjunkce · počítáno enginem</p>
-      <div id="vy-centtl" style="margin-top:4px;"></div>
-      <p class="prelim">Roky jsou definitivní vstupy (po odeznění retrográdních zajížděk, ±1 rok). Konjunkce pomalých planet jsou akordy dějin: Saturn–Uran ~45 let (řád × svoboda), Saturn–Neptun ~36 (sen × forma), Saturn–Pluto ~34 (krize × rekonstrukce), Uran–Pluto ~120 (revoluční exploze). Přesnost efemerid na sto let dopředu je pro pomalé planety dobrá; ber roky jako spolehlivé, dny jako orientační.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Univerzální rok · numerologie kolektivu</p>
-      <div id="vy-uni" style="margin-top:8px;"></div>
-    </div>
-  </div>
-
-  <div id="panel-planety" class="panel hidden">
-    <div class="card">
-      <p class="lbl">Planety · kompendium deseti světel</p>
-      <h2 style="margin-top:2px;">Deset archetypů</h2>
-      <p class="lead">Každé těleso je zároveň astronomický objekt, mytologická postava a psychický princip. Ťukni na planetu a rozbalí se monografie: mýtus a symbol, astrologický princip s dignitami, klasické korespondence těla a smyslů, dar a stín, živě spočítaný pohyb (poloha, rychlost, nejbližší stanice a vstup do znamení) i dějiny a budoucnost. Kompendium je obecné — nezávisí na profilu.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Kuchařka výkladů · planeta ve znamení a v domě</p>
-      <div id="cookbook"></div>
-      <p class="prelim">Vyber planetu a znamení (nebo dům). Výklady jsou obecné jádro astrologie — platí pro kohokoli; pro svůj či její chart najdeš konkrétní pozice v Nativu.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Aspekty · jak spolu dvě planety mluví</p>
-      <div id="aspbook"></div>
-      <p class="prelim">Aspekt je úhel mezi dvěma planetami — a tím i vztah dvou sil v tobě. Konjunkce (0°) je slévá, sextil (60°) a trigon (120°) je ladí, kvadratura (90°) a opozice (180°) je staví do napětí. Výklady jsou obecné; konkrétní aspekty svého chartu uvidíš v Nativu.</p>
-    </div>
-    <div class="card">
-      <p class="lbl">Deset těles · monografie</p>
-      <div id="planety-list"></div>
-      <p class="prelim">Pohyb i cesta znameními jsou počítané enginem k dnešku. Dignity uvádím v tradičním systému; vládu vnějších planet (Uran, Neptun, Pluto) doplnila až moderní astrologie. Mytologie a symbolika glyfů jsou stručné parafráze pramenů.</p>
-    </div>
-  </div>
-
-  <div id="panel-denik" class="panel hidden">
-    <div class="card">
-      <p class="lbl">Deník oblohy · dnešní nebe a tvůj zápis</p>
-      <div id="jr-head"></div>
-      <textarea id="jr-ta" class="jr-ta" placeholder="Co dnes vidím, cítím, pozoruji…"></textarea>
-      <div style="display:flex;gap:8px;align-items:center;margin-top:10px;">
-        <button id="jr-save" class="jr-btn">Uložit zápis</button>
-        <span id="jr-msg" style="font-size:12px;color:#9fd6a8;opacity:0;transition:opacity .4s;">Uloženo ✓</span>
-      </div>
-    </div>
-    <div class="card">
-      <p class="lbl">Minulé zápisy</p>
-      <div id="jr-list"></div>
-      <p class="prelim">Zápisky se ukládají jen do tohoto zařízení (paměť prohlížeče) — nikam se neposílají. Smažeš-li data Safari pro tento web, smažou se i zápisy.</p>
-    </div>
-  </div>
-
-  <div class="foot">Vše počítáno přímo v prohlížeči · bez internetu, bez API</div>
+<div class="tabs" id="tabs">
+<button class="on" data-tab="sky">Obloha</button>
+<button data-tab="planety">Planety</button>
+<button data-tab="natal">Nativ</button>
+<button data-tab="numero">Čísla</button>
+<button data-tab="transit">Tranzity</button>
+<button data-tab="syn">Synastrie</button>
+<button data-tab="vyhled">Výhled</button>
+<button data-tab="svet">Svět</button>
+<button data-tab="denik">Deník</button>
 </div>
+<div class="panel" id="panel-sky">
+<div class="card sky-controls-card">
+<div class="daterow">
+<div><p class="lbl">Datum oblohy</p><h2 id="datev">—</h2></div>
+<span class="badge live" id="badge"></span>
+</div>
+<input aria-label="Dní od dneška" id="slider" max="730" min="-730" step="1" type="range" value="0"/>
+<div class="scale"><span>2 roky zpět</span><span>dnes</span><span>2 roky vpřed</span></div>
+<div class="btns" id="btns">
+<button data-d="-30">−1M</button><button data-d="-1">−1D</button><button data-today="1">Dnes</button><button data-d="1">+1D</button><button data-d="30">+1M</button><button id="anim-btn" title="Časosběr oblohy">▶</button>
+</div>
+</div><div class="card hero-orloj-card"><div class="hero-title"><div><p class="lbl">Hlavní vizualizace · aktuální uspořádání oblohy</p><h2>Orloj</h2></div><div><p>Černý high-end app look · obsah zachován</p></div></div>
 
+
+<div id="wheel" style="margin-top:10px;"></div>
+<div class="leg"><span><i style="background:#75dfd4"></i>harmonické</span><span><i style="background:#ff8a76"></i>napjaté</span><span><i style="background:#f8c56b"></i>konjunkce</span></div>
+<div class="asp" id="aspects"></div>
+</div><div class="grid sky-data-grid"><div class="card plist sky-plist-card" id="plist"></div><div class="side sky-side"><div class="card" id="detail"></div></div></div>
+
+<div class="card">
+<div class="evhead">
+<div><p class="lbl">Vzácné a významné · ťukni pro vysvětlení</p><h2>Nebeské úkazy</h2></div>
+<div class="nodes" id="nodes"></div>
+</div>
+<div id="events"></div>
+<p class="note">Typy zatmění jsou predikované z polohy Měsíce a u hranic se mohou o kategorii lišit.</p>
+</div>
+<div class="card">
+<p class="lbl">Denní symbolická vrstva · dekan, lunární příbytek, měsíc naprázdno</p>
+<div id="daily-sym" style="margin-top:8px;"></div>
+<p class="note">Obrazy dekanů a významy příbytků jsou volné parafráze tradice (Picatrix, Agrippa); tarotová karta dekanu sleduje hermetické přiřazení Zlatého úsvitu. Karta Měsícova dekanu se mění zhruba denně — funguje jako karta dne. Vše se počítá k datu zvolenému nahoře.</p>
+</div>
+<div class="card">
+<div class="calhead">
+<div><p class="lbl">Lunární kalendář · fáze a znamení Měsíce den po dni</p><h3 id="cal-title">—</h3></div>
+<div class="calnav"><button aria-label="Předchozí měsíc" id="cal-prev">‹</button><button id="cal-today">Dnes</button><button aria-label="Další měsíc" id="cal-next">›</button></div>
+</div>
+<div id="cal-body"></div>
+<p class="note">Fáze a znamení jsou počítány k poledni daného dne. Nov a úplněk jsou označeny v den přesného okamžiku.</p>
+</div>
+</div><!-- /panel-sky -->
+<div class="panel hidden" id="panel-natal">
+<div class="card">
+<p class="lbl">Nativní horoskop</p>
+<div class="profsw" id="profsw-natal" style="margin-top:8px;"></div>
+<h2 id="n-title" style="margin-top:12px;">—</h2>
+<div class="info" id="n-info"></div>
+<div class="angles">
+<div class="angle"><div class="k">Ascendent (vých. obzor)</div><div class="v" id="n-asc">—</div></div>
+<div class="angle"><div class="k">MC (medium coeli)</div><div class="v" id="n-mc">—</div></div>
+</div>
+<p class="prelim" id="n-note"></p>
+</div>
+<div class="card">
+<p class="lbl">Hroty domů · Placidus</p>
+<div id="n-cusps" style="margin-top:8px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Postavení planet při narození · ťukni na řádek pro studijní výklad</p>
+<div id="n-list" style="margin-top:8px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Obloha v okamžiku narození</p>
+<h2 style="margin-top:2px;">Nativní kolo</h2>
+<div id="n-wheel" style="margin-top:10px;"></div>
+<div class="leg"><span><i style="background:#bdebd4"></i>AC / MC</span><span><i style="background:#75dfd4"></i>harmonické</span><span><i style="background:#ff8a76"></i>napjaté</span></div>
+<div class="asp" id="n-aspects"></div>
+</div>
+<div class="card">
+<p class="lbl">Živly a kvality · z 10 těles nativu</p>
+<h2 style="margin-top:2px;">Rovnováha živlů</h2>
+<div id="n-elems" style="margin-top:12px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Dekany a lunární příbytek nativu · obrazy k meditaci</p>
+<div id="n-decans" style="margin-top:6px;"></div>
+<p class="prelim">Každému z 36 dekanů (10° zvěrokruhu) vládne planeta v chaldejském pořadí; obrazy jsou volné parafráze tradice (Picatrix, Agrippa). Lunárních příbytků je 28 — dům, v němž stál Měsíc při narození, se čte jako vrozené citové podnebí.</p>
+</div>
+<div class="card">
+<p class="lbl">Tarotové korespondence nativu · ťukni na řádek pro výklad karet</p>
+<div id="n-tarot" style="margin-top:6px;"></div>
+<p class="prelim">Hermetické přiřazení (Zlatý úsvit): planety a znamení odpovídají velkým arkánám, 36 dekanů malým kartám 2–10 (tituly podle thothovské tradice). Číslování VIII Síla / XI Spravedlnost se mezi školami liší — držím řadu Rider–Waite. Ber jako studijní most: každou pozici chartu si můžeš vyložit i jazykem karet.</p>
+</div>
+<div class="card">
+<p class="lbl">Aspekty v nativu · skutečné úhly mezi planetami · ťukni pro výklad</p>
+<div id="n-aspects"></div>
+<p class="prelim">Počítáno z tohoto chartu. Orb = odchylka od přesného úhlu; čím menší, tím silnější aspekt (řazeno od nejtěsnějšího). Zahrnuty jsou hlavní aspekty deseti těles: konjunkce, sextil, kvadratura, trigon, opozice. Luminárie (Slunce, Měsíc) mají o něco širší orb.</p>
+</div>
+<div class="card">
+<p class="lbl">Uzlová osa a Lilith · směr růstu a stín</p>
+<div id="n-nodes" style="margin-top:6px;"></div>
+<p class="prelim">Měsíční uzly (☊ dračí hlava, ☋ dračí ocas) jsou body, kde se protíná dráha Měsíce s ekliptikou — osa duše: severní uzel je směr růstu, jižní zděděné pohodlí, které se učíš pouštět. Lilith (⚸ Černá Luna, měsíční apogeum) je nezkrotná, tabuizovaná síla a stín. Počítáno středními hodnotami k okamžiku narození.</p>
+</div>
+<div class="card">
+<p class="lbl">Pevné hvězdy · planety na velkých stálicích</p>
+<div id="n-stars" style="margin-top:6px;"></div>
+<p class="prelim">Když planeta nebo úhel stojí do 1° na významné stálici, přebírá její tón. Délky hvězd jsou precesně posunuté k roku narození. Zobrazeny jen skutečné konjunkce v tomto chartu; čtyři „královské hvězdy“ (Aldebaran, Regulus, Antares, Fomalhaut) jsou nejmocnější.</p>
+</div>
+<div class="card">
+<p class="lbl">Sabiánské symboly · obraz každého stupně</p>
+<div id="n-sabian" style="margin-top:6px;"></div>
+<p class="prelim">Každému z 360 stupňů zvěrokruhu náleží symbolický obraz (Marc Edmund Jones, 1925) — meditační klíč ke konkrétnímu stupni planety. Obrazy jsou převyprávěny vlastními slovy. Stupeň se počítá zaokrouhlením nahoru: 5°11′ = 6. stupeň.</p>
+</div>
+</div>
+<div class="panel hidden" id="panel-numero">
+<div class="card" style="padding:12px 14px;"><div class="profsw" id="profsw-num"></div></div>
+<div class="numgrid" id="numgrid"></div>
+<div class="card nbday">
+<div class="cal" id="nb-cal">—</div>
+<div><div class="bk">Narození</div><div class="bv" id="nb-date">—</div></div>
+</div>
+<div class="card">
+<div class="ntoday">
+<div><div class="td" id="num-todaydate">—</div><div class="tk">Denní čísla se počítají z dnešního data a tvého data narození.</div></div>
+<div class="tnums">
+<div style="text-align:center;"><div class="v" id="num-ud">—</div><div class="k">Univerzální den</div></div>
+<div style="text-align:center;"><div class="v" id="num-pd">—</div><div class="k">Osobní den</div></div>
+</div>
+</div>
+</div>
+<div class="card">
+<p class="lbl">Co čísla znamenají</p>
+<div id="num-mean"></div>
+<p class="prelim">Příště doladíme: osudové číslo a číslo duše ze jména, výzvy a vrcholy (pinnacles).</p>
+</div>
+<div class="card">
+<div class="ntoday">
+<div><div class="td" id="dr-name">—</div><div class="tk" id="dr-desc"></div></div>
+<div id="dr-glyph" style="font-size:42px;line-height:1;"></div>
+</div>
+</div>
+<div class="card">
+<p class="lbl">Planetární hodiny · počítáno z reálného východu a západu Slunce (Zlín / Uherský Brod)</p>
+<div class="ntoday" style="margin-top:8px;">
+<div><div class="td" id="ph-now">—</div><div class="tk" id="ph-desc"></div></div>
+<div id="ph-glyph" style="font-size:38px;line-height:1;"></div>
+</div>
+<div class="phgrid" id="ph-grid"></div>
+<p class="prelim">Starý chaldejský rytmus: denních i nočních hodin je vždy 12 — v létě jsou denní delší, v zimě kratší. První hodině dne vládne planeta dne, dál se střídají v pořadí Saturn–Jupiter–Mars–Slunce–Venuše–Merkur–Měsíc. Po 24 hodinách tak vychází vládce následujícího dne — odtud pořadí dnů v týdnu.</p>
+</div>
+<div class="card">
+<p class="lbl">Čínský zodiak · dekodér roku</p>
+<h2 style="margin-top:2px;">Který rok je které znamení</h2>
+<div class="dec">
+<button aria-label="Předchozí rok" id="cz-minus">−</button>
+<input id="cz-year" inputmode="numeric" type="number" value="2026"/>
+<button aria-label="Další rok" id="cz-plus">+</button>
+<div class="decres"><div class="r1" id="cz-res">—</div><div class="r2" id="cz-trait"></div></div>
+</div>
+<p class="prelim">Čínský rok nezačíná 1. ledna, ale lunárním novým rokem (přelom ledna a února). Narození v lednu či začátkem února proto může patřit ještě k předchozímu znamení.</p>
+</div>
+<div class="card">
+<p class="lbl">Přehled 1948–2031 · barva roku = živel · zvýrazněn rok profilu a aktuální</p>
+<div class="czgrid" id="cz-grid"></div>
+<div class="leg" style="margin-top:12px;"><span><i style="background:#9fd6a8"></i>dřevo</span><span><i style="background:#ff8a76"></i>oheň</span><span><i style="background:#f8c56b"></i>země</span><span><i style="background:#d8dee9"></i>kov</span><span><i style="background:#8fd8ff"></i>voda</span></div>
+</div>
+<div class="card">
+<p class="lbl">Čtyři pilíře (BaZi) · čínský rozbor zrození</p>
+<div class="profsw" id="profsw-bz" style="margin-top:8px;margin-bottom:10px;"></div>
+<div id="bazi"></div>
+<p class="prelim">Osm znaků (kmen + větev pro rok, měsíc, den a hodinu). Roční a měsíční pilíř se počítají ze solárních termů (rok začíná Lì-čhun ≈ 4. 2., ne lunárním novým rokem), denní z juliánského dne, hodinový z místního času narození. Denní kmen je „Denní pán“ — jádro tvého já. Rozbor pěti prvků ukazuje, čeho máš nadbytek a co pěstovat.</p>
+</div>
+<div class="card">
+<p class="lbl">Jmenná numerologie · číslo z písmen jména</p>
+<input autocomplete="off" class="nm-inp" id="nm-input" placeholder="Napiš celé jméno…" type="text">
+<div id="nm-out" style="margin-top:6px;"></div>
+<p class="prelim">Pythagorejský systém (A=1…I=9, J=1…). Číslo výrazu (osud) = všechna písmena, číslo duše (touha srdce) = samohlásky, číslo osobnosti = souhlásky. Diakritika se převádí na základní písmeno, Y se počítá jako samohláska. Mistrovská 11/22/33 se nekrátí.</p>
+</input></div>
+</div>
+<div class="panel hidden" id="panel-transit">
+<div class="card">
+<p class="lbl">Tranzity · co teď aktivuje chart</p>
+<div class="profsw" id="profsw-tr" style="margin-top:8px;"></div>
+<h2 style="margin-top:12px;">Aktuální tranzity</h2>
+<p class="lead">Tranzit = kde je planeta na dnešní obloze vůči nativnímu postavení zvoleného profilu. Když tranzitní planeta utvoří aspekt na nativní bod, dané téma se „rozsvítí“. Pomalé planety (Saturn a výš) drží týdny až měsíce a váží nejvíc; Slunce a Měsíc jsou rychlé spouštěče.</p>
+<div id="t-list" style="margin-top:14px;"></div>
+<p class="prelim">Řazeno podle těsnosti (orb). Ťukni na řádek pro výklad a meditaci.</p>
+</div>
+</div>
+<div class="panel hidden" id="panel-syn">
+<div class="card">
+<p class="lbl">Synastrie · dva charty v rozhovoru</p>
+<h2 style="margin-top:2px;">Svitovid × Přítelkyně</h2>
+<p class="lead">Synastrie porovnává dva nativní horoskopy: aspekty mezi tvými a jejími planetami ukazují, kde se vaše energie potkávají, podporují a kde se třou. Harmonické (trigon, sextil) plynou samy; napjaté (kvadratura, opozice) tvoří přitažlivost i třecí plochy — a bývá to právě ono, co vztah pohání a učí.</p>
+<p class="lead"><b>Jak číst:</b> orb je odchylka od přesného úhlu — čím menší, tím silněji aspekt působí (do ~3° je „těsný“, v každodennosti nepřehlédnutelný). Kontakty osobních planet (Slunce, Měsíc, Merkur, Venuše, Mars) vypovídají o vás dvou; pomalé planety přidávají generační a osudový tón. Když stejné téma potvrzují dva různé aspekty — tzv. dvojité potvrzení — bývá pro vztah určující. Vy je máte hned dvakrát: u jejího Měsíce (tvůj Merkur i Mars) a na ose Venuše–Mars.</p>
+</div>
+<div class="card">
+<p class="lbl">Společné kolo · vnější prstenec Svitovid, vnitřní Přítelkyně · čáry = nejtěsnější mezi-aspekty</p>
+<div id="syn-wheel" style="margin-top:10px;"></div>
+<div class="leg"><span><i style="background:#75dfd4"></i>harmonické</span><span><i style="background:#ff8a76"></i>napjaté</span><span><i style="background:#f8c56b"></i>konjunkce</span></div>
+</div>
+<div class="card">
+<p class="lbl">Klíčová spojení · studijní výklad — ťukni pro rozbalení</p>
+<div id="syn-key"></div>
+</div>
+<div class="card">
+<p class="lbl">Mezi-aspekty · seřazeno podle těsnosti</p>
+<div id="syn-list"></div>
+<p class="prelim">Konjunkce pomalých planet (Pluto ☌ Pluto, Neptun ☌ Neptun, Uran ☌ Uran) sdílí celý váš ročník — vypovídají o společném dobovém naladění generace, ne o vás dvou.</p>
+</div>
+<div class="card">
+<p class="lbl">Shrnutí</p>
+<div id="syn-sum"></div>
+</div>
+</div>
+<div class="panel hidden" id="panel-vyhled">
+<div class="card">
+<p class="lbl">Výhled · predikční vrstvy</p>
+<div class="profsw" id="profsw-vy" style="margin-top:8px;"></div>
+<h2 style="margin-top:12px;">Co přichází</h2>
+<p class="lead">Predikce v symbolických systémech není věštění výsledků, ale <b>mapa počasí</b>: říká, která témata a síly budou kdy aktivní — jestli poteče voda do mlýna stavby, vztahů, nebo pouštění. Co s tím počasím uděláš, zůstává na tobě. Tři nezávislé vrstvy níže (profekce, progrese, tranzity) se navzájem doplňují: kde se shodnou, tam je téma roku.</p>
+</div>
+<div class="card">
+<p class="lbl">Roční profekce · helénistická technika časových pánů</p>
+<div id="vy-prof" style="margin-top:8px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Sekundární progrese · den za rok — vnitřní období života</p>
+<div id="vy-prog" style="margin-top:8px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Časová osa tranzitů · přesné zásahy pomalých planet v příštích 12 měsících · ťukni pro výklad</p>
+<div id="vy-tl" style="margin-top:4px;"></div>
+<p class="prelim">Jupiter–Pluto na nativní planety, Ascendent a MC. Značka R = planeta jde v tu chvíli retrográdně; pomalé planety se kvůli retrogradaci vracejí, táž lekce proto často přijde ve dvou či třech vlnách. Rychlé spouštěče (Slunce–Mars) sleduj v záložce Tranzity.</p>
+</div>
+<div class="card">
+<p class="lbl">Numerologický výhled · devítiletý cyklus, vrcholy a výzvy</p>
+<div id="vy-num" style="margin-top:8px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Mapa života · velké cykly na 100 let dopředu · ťukni pro smysl a praxi</p>
+<div id="vy-life" style="margin-top:4px;"></div>
+<p class="prelim">Kostra času, kterou sdílí každý lidský život — přesné roky jsou ale spočtené pro tento konkrétní chart (vlny retrogradací = víceleté okno, uvedeno celé). Mezi milníky žij podle ročních vrstev výše: profekce a osobní rok říkají, čemu patří tento rok; mapa života říká, čemu patří dekáda.</p>
+</div>
+</div>
+<div class="panel hidden" id="panel-svet">
+<div class="card">
+<p class="lbl">Svět · kolektivní a stoleté vrstvy</p>
+<h2 style="margin-top:2px;">Univerzální výhled</h2>
+<p class="lead">Tady se Orloj dívá nad jednotlivé charty: rytmy, které sdílí celá doba — od nové éry vzduchu přes éry vnějších planet až po platónský rok. Nezávisí na profilu; je to počasí civilizace, ve kterém osobní mapy (záložka Výhled) plují.</p>
+</div>
+<div class="card">
+<p class="lbl">Zatmění · nadcházející brány osudu</p>
+<div id="sv-eclipse" style="margin-top:6px;"></div>
+<p class="prelim">Zatmění nastává, když se novoluní (Slunce) nebo úplněk (Měsíc) potká blízko měsíčního uzlu. V tradici jsou to zesílené předěly — otevírají a zavírají příběhy zvlášť tam, kde padnou na tvé nativní planety. Počítáno na ~18 měsíců dopředu; stupeň ukazuje, kterou část zvěrokruhu rozsvítí.</p>
+</div>
+<div class="card">
+<p class="lbl">Nová doba · co přináší vodnářský práh · ťukni pro studii</p>
+<p class="lead">Nežijeme jednu změnu, ale souběh prahů: éra vzduchu (od 2020, na ~200 let), Pluto ve Vodnáři (do ~2044), Uran v Blížencích a Neptun v Beranu (2025–26) — a v pozadí pomalý příchod platónského věku Vodnáře. Nová doba nepřichází vypínačem; žijeme v překryvu dvou epoch. Generace rozené teď jsou domorodci nové éry — my jsme překladatelé a stavitelé mostů. Osm oblastí níže popisuje, co se mění, co to dává, kde to stíní a jak to uchopit.</p>
+<div id="vy-nova" style="margin-top:6px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Platónský rok · precese a věk Vodnáře</p>
+<div id="vy-plato" style="margin-top:8px;"></div>
+<p class="prelim">Hranice věků jsou nejspornější údaj astrologie. Výpočet výše používá ayanamsu Lahiri a rychlost precese 50,29″ za rok; Fagan–Bradley dává začátek Vodnáře ≈ 2380, populární odhady sahají od 1962 do ~2600 a mnozí berou velkou konjunkci 2020 ve Vodnáři jako symbolickou bránu. Letopočty věků ber orientačně — jde o rytmus, ne o přesná data.</p>
+</div>
+<div class="card">
+<p class="lbl">Velké konjunkce Jupiter–Saturn · tep dějin po 20 letech</p>
+<div id="vy-gc" style="margin-top:8px;"></div>
+<p class="prelim">Konjunkce Jupiter–Saturn („velká konjunkce") se ~200 let drží v jednom živlu. Éra země (1802–2020) postavila průmysl a kapitál; konjunkcí na 0° Vodnáře 21. 12. 2020 začala éra vzduchu — hodnota se stěhuje do informací, sítí a idejí. Trojité konjunkce (1940–41, 1980–81) vznikají retrogradací.</p>
+</div>
+<div class="card">
+<p class="lbl">Cyklická historie · velké konjunkce roku 1–2100 podle er živlů · ťukni na éru</p>
+<p class="lead">Velká konjunkce se opakuje ~každých 20 let a ~200 let zůstává v jednom živlu; přechod do dalšího živlu (velká mutace) tradice čte jako epochální předěl. Níže je všech 105 konjunkcí od roku 1 spočítaných enginem, seskupených do jedenácti er. U některých je doložená dobová událost — a nejsilnější jsou ty, na které lidé tehdy skutečně reagovali: konjunkci roku 1345 vinila pařížská lékařská fakulta z morové rány, z roku 1484 astrologové věštili náboženský převrat, rok 1524 spustil paniku z potopy a tu z roku 1603 pozoroval Kepler.</p>
+<div id="vy-chist" style="margin-top:6px;"></div>
+<p class="prelim">Data jsou počítaná, ne opsaná. Novověké konjunkce sedí na den (2020-12-21, 2000-05-28 ověřeno); u dat před ~rokem 1600 je spolehlivý rok a živel, přesný den je přibližný (nižší přesnost efemerid v hloubi minulosti). Historie je rezonance k přemýšlení, ne důkaz příčiny — mapa času, ne rozsudek.</p>
+</div>
+<div class="card">
+<p class="lbl">Éry vnějších planet · kolektivní vědomí · ťukni pro výklad</p>
+<div id="vy-eras" style="margin-top:4px;"></div>
+<p class="prelim">Roky vstupů jsou počítané enginem (≈, bez retrográdních zajížděk). Uran se vrací za 84 let — jednou za lidský život; Neptun za 165, Pluto za ~248 let. Historické ozvěny jsou jazyk tradice: rytmy k přemýšlení, ne důkazy.</p>
+</div>
+<div class="card">
+<p class="lbl">Století dopředu · kapitoly 2026–2126 · ťukni pro očekávání a přizpůsobení</p>
+<div id="vy-cent" style="margin-top:4px;"></div>
+</div>
+<div class="card">
+<p class="lbl">Osa století · vstupy vnějších planet a velké konjunkce · počítáno enginem</p>
+<div id="vy-centtl" style="margin-top:4px;"></div>
+<p class="prelim">Roky jsou definitivní vstupy (po odeznění retrográdních zajížděk, ±1 rok). Konjunkce pomalých planet jsou akordy dějin: Saturn–Uran ~45 let (řád × svoboda), Saturn–Neptun ~36 (sen × forma), Saturn–Pluto ~34 (krize × rekonstrukce), Uran–Pluto ~120 (revoluční exploze). Přesnost efemerid na sto let dopředu je pro pomalé planety dobrá; ber roky jako spolehlivé, dny jako orientační.</p>
+</div>
+<div class="card">
+<p class="lbl">Univerzální rok · numerologie kolektivu</p>
+<div id="vy-uni" style="margin-top:8px;"></div>
+</div>
+</div>
+<div class="panel hidden" id="panel-planety">
+<div class="card">
+<p class="lbl">Planety · kompendium deseti světel</p>
+<h2 style="margin-top:2px;">Deset archetypů</h2>
+<p class="lead">Každé těleso je zároveň astronomický objekt, mytologická postava a psychický princip. Ťukni na planetu a rozbalí se monografie: mýtus a symbol, astrologický princip s dignitami, klasické korespondence těla a smyslů, dar a stín, živě spočítaný pohyb (poloha, rychlost, nejbližší stanice a vstup do znamení) i dějiny a budoucnost. Kompendium je obecné — nezávisí na profilu.</p>
+</div>
+<div class="card">
+<p class="lbl">Kuchařka výkladů · planeta ve znamení a v domě</p>
+<div id="cookbook"></div>
+<p class="prelim">Vyber planetu a znamení (nebo dům). Výklady jsou obecné jádro astrologie — platí pro kohokoli; pro svůj či její chart najdeš konkrétní pozice v Nativu.</p>
+</div>
+<div class="card">
+<p class="lbl">Aspekty · jak spolu dvě planety mluví</p>
+<div id="aspbook"></div>
+<p class="prelim">Aspekt je úhel mezi dvěma planetami — a tím i vztah dvou sil v tobě. Konjunkce (0°) je slévá, sextil (60°) a trigon (120°) je ladí, kvadratura (90°) a opozice (180°) je staví do napětí. Výklady jsou obecné; konkrétní aspekty svého chartu uvidíš v Nativu.</p>
+</div>
+<div class="card">
+<p class="lbl">Deset těles · monografie</p>
+<div id="planety-list"></div>
+<p class="prelim">Pohyb i cesta znameními jsou počítané enginem k dnešku. Dignity uvádím v tradičním systému; vládu vnějších planet (Uran, Neptun, Pluto) doplnila až moderní astrologie. Mytologie a symbolika glyfů jsou stručné parafráze pramenů.</p>
+</div>
+</div>
+<div class="panel hidden" id="panel-denik">
+<div class="card">
+<p class="lbl">Deník oblohy · dnešní nebe a tvůj zápis</p>
+<div id="jr-head"></div>
+<textarea class="jr-ta" id="jr-ta" placeholder="Co dnes vidím, cítím, pozoruji…"></textarea>
+<div style="display:flex;gap:8px;align-items:center;margin-top:10px;">
+<button class="jr-btn" id="jr-save">Uložit zápis</button>
+<span id="jr-msg" style="font-size:12px;color:#9fd6a8;opacity:0;transition:opacity .4s;">Uloženo ✓</span>
+</div>
+</div>
+<div class="card">
+<p class="lbl">Minulé zápisy</p>
+<div id="jr-list"></div>
+<p class="prelim">Zápisky se ukládají jen do tohoto zařízení (paměť prohlížeče) — nikam se neposílají. Smažeš-li data Safari pro tento web, smažou se i zápisy.</p>
+</div>
+</div>
+<div class="foot">Vše počítáno přímo v prohlížeči · bez internetu, bez API</div>
+</div>
 <script>
 (function(){
   var RAD=Math.PI/180, toDeg=function(r){return r/RAD;}, sin=function(d){return Math.sin(d*RAD);}, cos=function(d){return Math.cos(d*RAD);};
