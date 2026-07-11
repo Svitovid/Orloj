@@ -426,6 +426,8 @@ input[type="range"]{accent-color:#cbb06b}
   .leg{justify-content:flex-start;gap:12px;flex-wrap:wrap}
 }
 
+
+
 </style>
 </head>
 <body>
@@ -456,14 +458,11 @@ input[type="range"]{accent-color:#cbb06b}
 <div class="btns" id="btns">
 <button data-d="-30">−1M</button><button data-d="-1">−1D</button><button data-today="1">Dnes</button><button data-d="1">+1D</button><button data-d="30">+1M</button><button id="anim-btn" title="Časosběr oblohy">▶</button>
 </div>
-</div><div class="card hero-orloj-card"><div class="hero-title"><div><p class="lbl">Hlavní vizualizace · aktuální uspořádání oblohy</p><h2>Orloj</h2></div><div><p>Černý high-end app look · obsah zachován</p></div></div>
-
-
+</div><div class="card hero-orloj-card"><div class="hero-title"><div><p class="lbl">Hlavní vizualizace · aktuální uspořádání oblohy</p><h2>Orloj</h2></div><div><p>Aktuální obloha · osobní vazby</p></div></div>
 <div id="wheel" style="margin-top:10px;"></div>
 <div class="leg"><span><i style="background:#75dfd4"></i>harmonické</span><span><i style="background:#ff8a76"></i>napjaté</span><span><i style="background:#f8c56b"></i>konjunkce</span></div>
 <div class="asp" id="aspects"></div>
 </div><div class="grid sky-data-grid"><div class="card plist sky-plist-card" id="plist"></div><div class="side sky-side"><div class="card" id="detail"></div></div></div>
-
 <div class="card">
 <div class="evhead">
 <div><p class="lbl">Vzácné a významné · ťukni pro vysvětlení</p><h2>Nebeské úkazy</h2></div>
@@ -609,10 +608,10 @@ input[type="range"]{accent-color:#cbb06b}
 </div>
 <div class="card">
 <p class="lbl">Jmenná numerologie · číslo z písmen jména</p>
-<input autocomplete="off" class="nm-inp" id="nm-input" placeholder="Napiš celé jméno…" type="text">
+<input autocomplete="off" class="nm-inp" id="nm-input" placeholder="Napiš celé jméno…" type="text"/>
 <div id="nm-out" style="margin-top:6px;"></div>
 <p class="prelim">Pythagorejský systém (A=1…I=9, J=1…). Číslo výrazu (osud) = všechna písmena, číslo duše (touha srdce) = samohlásky, číslo osobnosti = souhlásky. Diakritika se převádí na základní písmeno, Y se počítá jako samohláska. Mistrovská 11/22/33 se nekrátí.</p>
-</input></div>
+</div>
 </div>
 <div class="panel hidden" id="panel-transit">
 <div class="card">
@@ -2233,6 +2232,31 @@ input[type="range"]{accent-color:#cbb06b}
   setTimeout(function(){renderVyhled();renderUniversal();renderCentury();renderNova();renderEclipse();renderPlanety();renderCookbook();renderAspects();renderBazi();renderJournal();},150);clock();setInterval(clock,1000);setInterval(function(){if(state.offset===0)render();renderTransits();renderNumero();renderDayRuler();renderPlanetHours();skyTint();},30000);
 })();
 </script>
-<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async function () {
+    try {
+      var cacheFlag = "orloj-redesign-cache-v6";
+      if (!localStorage.getItem(cacheFlag) && "caches" in window) {
+        var keys = await caches.keys();
+        await Promise.all(keys.map(function (key) { return caches.delete(key); }));
+        localStorage.setItem(cacheFlag, "1");
+      }
+      var refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", function () {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+      var registration = await navigator.serviceWorker.register("./sw.js?v=6", {
+        updateViaCache: "none"
+      });
+      await registration.update();
+    } catch (err) {
+      console.warn("Orloj update failed", err);
+    }
+  });
+}
+</script>
 </body>
 </html>
